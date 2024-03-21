@@ -12,19 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const productModel_1 = __importDefault(require("../models/productModel"));
-//@desc Get all products
-//@route GET/api/products
-//@access public
-const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const mongoose_1 = __importDefault(require("mongoose"));
+let connection = null;
+const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
+    if (connection) {
+        return connection;
+    }
     try {
-        const product = yield productModel_1.default.find();
-        console.log(product);
-        res.status(200).json(product);
+        const newConnection = yield mongoose_1.default.connect(process.env.CONNECTION_STRING);
+        connection = newConnection.connection;
+        console.log("Database connected: ", connection.host, connection.name);
+        return connection;
     }
     catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server Error" });
+        console.log(error);
+        process.exit(1);
     }
 });
-exports.default = getProducts;
+exports.default = connectDb;
