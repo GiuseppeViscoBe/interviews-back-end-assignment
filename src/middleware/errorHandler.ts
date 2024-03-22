@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { constants } from "./../constants";
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+    console.log("error mid: " + err)
   const statusCode: number = res.statusCode ? res.statusCode : 500;
   switch (statusCode) {
     case constants.VALIDATION_ERROR:
@@ -40,7 +41,11 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
       });
       break;
     default:
-      console.log("No error, all good.");
+        res.json({
+            title: "Generic Error",
+            message: err.message,
+            stackTrace: err.stack,
+          });
       break;
   }
 };

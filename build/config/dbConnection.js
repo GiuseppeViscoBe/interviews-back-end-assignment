@@ -21,7 +21,6 @@ const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newConnection = yield mongoose_1.default.connect(process.env.CONNECTION_STRING);
         connection = newConnection.connection;
-        console.log("Database connected: ", connection.host, connection.name);
         return connection;
     }
     catch (error) {

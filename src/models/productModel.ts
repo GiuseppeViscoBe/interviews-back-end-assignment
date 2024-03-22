@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-// Definizione dell'interfaccia per il documento del prodotto
 interface IProduct extends Document {
   name: string;
   image: string;
@@ -9,7 +8,6 @@ interface IProduct extends Document {
   category: string;
 }
 
-// Schema del prodotto
 const productSchema: Schema<IProduct> = new Schema<IProduct>({
   name: { type: String, required: true },
   image: { type: String, required: true },
@@ -18,7 +16,6 @@ const productSchema: Schema<IProduct> = new Schema<IProduct>({
   category: { type: String, required: true }
 });
 
-// Creazione del modello Product basato sullo schema
 const Product = mongoose.model<IProduct>("Product", productSchema);
 
 export default Product;

@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-// Schema del prodotto
 const productSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     image: { type: String, required: true },
@@ -32,6 +31,5 @@ const productSchema = new mongoose_1.Schema({
     availableQuantity: { type: Number, required: true },
     category: { type: String, required: true }
 });
-// Creazione del modello Product basato sullo schema
 const Product = mongoose_1.default.model("Product", productSchema);
 exports.default = Product;
