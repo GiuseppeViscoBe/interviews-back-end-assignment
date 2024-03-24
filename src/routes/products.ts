@@ -1,10 +1,12 @@
 import express from 'express';
-import getProducts from '../controllers/products.controller';
+import productsController from '../controllers/products.controller';
 import Product from '../models/entities/productModel';
 import paginationHandler from '../middleware/paginationHandler';
+
 const router = express.Router();
 
-
-router.route("/").get(paginationHandler(Product),getProducts);
+router.get("/", paginationHandler(Product), productsController.getProducts);
+router.get("/searchByNameAndOrCategory", productsController.getProductByNameAndOrCategory ); 
+router.get("/getCategoriesNameAndNumber", productsController.getCategoriesNameAndNumber)
 
 export default router;
