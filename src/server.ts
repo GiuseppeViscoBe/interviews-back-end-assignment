@@ -1,12 +1,15 @@
 import express, { Express, Request, Response } from "express";
-const port = 8000;
+import dotenv from 'dotenv';
+import router from "./routes/products"
+import connectDb from "./config/dbConnection";
+import app from "./config/app"
 
-const app: Express = express();
+dotenv.config();
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("HELLO INIT!!!");
-});
+const port = process.env.PORT || 8000;
 
-app.listen(port, () => {
-  console.log(`now listening on port ${port}`);
+app.listen(port, async () => {
+  console.log(`now listening on port ${port}`); 
+
+  await connectDb(); 
 });
