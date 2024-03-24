@@ -8,6 +8,6 @@ const products_1 = __importDefault(require("../routes/products"));
 const errorHandler_1 = __importDefault(require("../middleware/errorHandler"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use("/api/products", products_1.default);
+app.use("/api", products_1.default);
 app.use(errorHandler_1.default);
 exports.default = app;

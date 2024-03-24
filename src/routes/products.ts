@@ -5,7 +5,7 @@ import paginationHandler from '../middleware/paginationHandler';
 
 const router = express.Router();
 
-router.get("/", paginationHandler(Product), productsController.getProducts);
+router.get("/getProducts", paginationHandler(Product), productsController.getProducts);
 router.get("/getProductsByNameAndOrCategory", productsController.getProductsByNameAndOrCategory ); 
 router.get("/getCategoriesNameAndNumber", productsController.getCategoriesNameAndNumber)
 

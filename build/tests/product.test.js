@@ -29,14 +29,14 @@ describe("product", () => {
         yield mongoose_1.default.disconnect();
         yield mongoServer.stop();
     }));
-    describe("get product route", () => {
+    describe("get products route", () => {
         describe("given the database is empty", () => {
             it("should return a 404", () => __awaiter(void 0, void 0, void 0, function* () {
-                yield (0, supertest_1.default)(app_1.default).get(`/api/products}`).expect(404);
+                yield (0, supertest_1.default)(app_1.default).get(`/api/getProducts}`).expect(404);
             }));
         });
     });
-    describe("get product route", () => {
+    describe("get products route", () => {
         describe("given the database is not empty", () => {
             it("should return a 200 status and the products", () => __awaiter(void 0, void 0, void 0, function* () {
                 const productPayloads = [
@@ -58,7 +58,7 @@ describe("product", () => {
                     },
                 ];
                 const products = yield productModel_1.default.create(productPayloads);
-                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/products`);
+                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProducts`);
                 expect(statusCode).toBe(200);
                 expect(body).toHaveProperty("products");
                 expect(body.products.length).toBeGreaterThan(0);
@@ -71,6 +71,111 @@ describe("product", () => {
                     expect(responseProduct.price).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.price);
                     expect(responseProduct.availableQuantity).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.availableQuantity);
                     expect(responseProduct.category).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.category);
+                });
+            }));
+        });
+    });
+    describe("getProductsByNameAndOrCategory route", () => {
+        describe("given the database is not empty and both name and category are provided", () => {
+            it("should return a 200 status and the matching products", () => __awaiter(void 0, void 0, void 0, function* () {
+                const productPayloads = [
+                    {
+                        id: 1,
+                        name: "Prodotto 1",
+                        image: "url_immagine_1",
+                        price: 10.99,
+                        availableQuantity: 50,
+                        category: "Categoria 1",
+                    },
+                    {
+                        id: 2,
+                        name: "Prodotto 2",
+                        image: "url_immagine_2",
+                        price: 5.99,
+                        availableQuantity: 100,
+                        category: "Categoria 2",
+                    },
+                    {
+                        id: 1,
+                        name: "Prodotto 1",
+                        image: "url_immagine_1",
+                        price: 10.99,
+                        availableQuantity: 50,
+                        category: "Categoria 1",
+                    },
+                ];
+                yield productModel_1.default.create(productPayloads);
+                const productName = "Prodotto 1";
+                const categoryName = "Categoria 1";
+                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProductsByNameAndOrCategory?pName=${productName}&cName=${categoryName}`);
+                expect(statusCode).toBe(200);
+                expect(body).toHaveProperty("products");
+                expect(body.products.length).toBeGreaterThan(0);
+                body.products.forEach((responseProduct) => {
+                    expect(responseProduct.name).toBe(productName);
+                    expect(responseProduct.category).toBe(categoryName);
+                });
+            }));
+        });
+        describe("given the database is not empty and only name is provided", () => {
+            it("should return a 200 status and the matching products", () => __awaiter(void 0, void 0, void 0, function* () {
+                const productPayloads = [
+                    {
+                        id: 1,
+                        name: "Prodotto 1",
+                        image: "url_immagine_1",
+                        price: 10.99,
+                        availableQuantity: 50,
+                        category: "Categoria 1",
+                    },
+                    {
+                        id: 2,
+                        name: "Prodotto 2",
+                        image: "url_immagine_2",
+                        price: 5.99,
+                        availableQuantity: 100,
+                        category: "Categoria 2",
+                    },
+                ];
+                yield productModel_1.default.create(productPayloads);
+                const productName = "Prodotto 1";
+                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProductsByNameAndOrCategory?pName=${productName}`);
+                expect(statusCode).toBe(200);
+                expect(body).toHaveProperty("products");
+                expect(body.products.length).toBeGreaterThan(0);
+                body.products.forEach((responseProduct) => {
+                    expect(responseProduct.name).toBe(productName);
+                });
+            }));
+        });
+        describe("given the database is not empty and only category is provided", () => {
+            it("should return a 200 status and the matching products", () => __awaiter(void 0, void 0, void 0, function* () {
+                const productPayloads = [
+                    {
+                        id: 1,
+                        name: "Prodotto 1",
+                        image: "url_immagine_1",
+                        price: 10.99,
+                        availableQuantity: 50,
+                        category: "Categoria 1",
+                    },
+                    {
+                        id: 2,
+                        name: "Prodotto 2",
+                        image: "url_immagine_2",
+                        price: 5.99,
+                        availableQuantity: 100,
+                        category: "Categoria 2",
+                    },
+                ];
+                yield productModel_1.default.create(productPayloads);
+                const categoryName = "Categoria 1";
+                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProductsByNameAndOrCategory?cName=${categoryName}`);
+                expect(statusCode).toBe(200);
+                expect(body).toHaveProperty("products");
+                expect(body.products.length).toBeGreaterThan(0);
+                body.products.forEach((responseProduct) => {
+                    expect(responseProduct.category).toBe(categoryName);
                 });
             }));
         });
