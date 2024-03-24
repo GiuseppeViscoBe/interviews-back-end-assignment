@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PaginationResponse } from "../typings/paginationResponse";
-import { PaginationResult } from "../typings/paginationInterface";
+import { PaginationResult } from "../typings/paginationResult";
 
 export const paginationHandler = (model: any) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +12,7 @@ export const paginationHandler = (model: any) => {
     const endIndex = page * limit;
     
     const result: PaginationResult = {
-      results: [],
+      products: [],
     };
 
     if (endIndex < (await model.countDocuments().exec())) {
@@ -30,9 +30,8 @@ export const paginationHandler = (model: any) => {
 
 
     try {
-      console.log(result.results);
-      result.results = await model.find().limit(limit).skip(skipIndex);
-      (res as PaginationResponse).paginatedResult = result;
+      result.products = await model.find().limit(limit).skip(skipIndex);
+      (res as PaginationResponse).results = result;
       next();
     } catch (e: any) {      
       next(e);

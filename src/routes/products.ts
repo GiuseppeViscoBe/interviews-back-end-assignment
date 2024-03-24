@@ -1,6 +1,6 @@
 import express from 'express';
-import getProducts from '../controllers/productsController';
-import Product from '../models/productModel';
+import getProducts from '../controllers/products.controller';
+import Product from '../models/entities/productModel';
 import paginationHandler from '../middleware/paginationHandler';
 const router = express.Router();
 

@@ -18,7 +18,7 @@ const paginationHandler = (model) => {
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const result = {
-            results: [],
+            products: [],
         };
         if (endIndex < (yield model.countDocuments().exec())) {
             result.next = {
@@ -33,9 +33,8 @@ const paginationHandler = (model) => {
             };
         }
         try {
-            console.log(result.results);
-            result.results = yield model.find().limit(limit).skip(skipIndex);
-            res.paginatedResult = result;
+            result.products = yield model.find().limit(limit).skip(skipIndex);
+            res.results = result;
             next();
         }
         catch (e) {

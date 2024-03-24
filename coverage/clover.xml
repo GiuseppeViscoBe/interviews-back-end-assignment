@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1711279694649" clover="3.2.0">
+  <project timestamp="1711279694649" name="All files">
+    <metrics statements="183" coveredstatements="140" conditionals="116" coveredconditionals="83" methods="35" coveredmethods="29" elements="334" coveredelements="252" complexity="0" loc="183" ncloc="183" packages="12" files="14" classes="14"/>
+    <package name="build">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\constants.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="build.config">
+      <metrics statements="11" coveredstatements="11" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+      <file name="app.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\config\app.js">
+        <metrics statements="11" coveredstatements="11" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+        <line num="2" count="1" type="cond" truecount="3" falsecount="0"/>
+        <line num="3" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="build.controllers">
+      <metrics statements="22" coveredstatements="20" conditionals="26" coveredconditionals="23" methods="10" coveredmethods="9"/>
+      <file name="products.controller.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\controllers\products.controller.js">
+        <metrics statements="22" coveredstatements="20" conditionals="26" coveredconditionals="23" methods="10" coveredmethods="9"/>
+        <line num="2" count="1" type="cond" truecount="3" falsecount="0"/>
+        <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="1" type="cond" truecount="3" falsecount="0"/>
+        <line num="12" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="build.middleware">
+      <metrics statements="47" coveredstatements="28" conditionals="23" coveredconditionals="13" methods="11" coveredmethods="9"/>
+      <file name="errorHandler.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\middleware\errorHandler.js">
+        <metrics statements="19" coveredstatements="4" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+      </file>
+      <file name="paginationHandler.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\middleware\paginationHandler.js">
+        <metrics statements="28" coveredstatements="24" conditionals="15" coveredconditionals="13" methods="10" coveredmethods="9"/>
+        <line num="2" count="1" type="cond" truecount="3" falsecount="0"/>
+        <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="29" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="build.models.entities">
+      <metrics statements="22" coveredstatements="19" conditionals="35" coveredconditionals="27" methods="6" coveredmethods="4"/>
+      <file name="productModel.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\models\entities\productModel.js">
+        <metrics statements="22" coveredstatements="19" conditionals="35" coveredconditionals="27" methods="6" coveredmethods="4"/>
+        <line num="2" count="1" type="cond" truecount="4" falsecount="1"/>
+        <line num="3" count="52" type="cond" truecount="1" falsecount="1"/>
+        <line num="4" count="52" type="stmt"/>
+        <line num="5" count="52" type="cond" truecount="7" falsecount="1"/>
+        <line num="6" count="51" type="stmt"/>
+        <line num="8" count="52" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="1" type="cond" truecount="4" falsecount="1"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="3" falsecount="0"/>
+        <line num="19" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="60" type="cond" truecount="5" falsecount="1"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="build.routes">
+      <metrics statements="10" coveredstatements="10" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+      <file name="products.js" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\build\routes\products.js">
+        <metrics statements="10" coveredstatements="10" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+        <line num="2" count="1" type="cond" truecount="3" falsecount="0"/>
+        <line num="3" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\constants.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.config">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="app.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\config\app.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controllers">
+      <metrics statements="12" coveredstatements="11" conditionals="8" coveredconditionals="6" methods="2" coveredmethods="2"/>
+      <file name="products.controller.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\controllers\products.controller.ts">
+        <metrics statements="12" coveredstatements="11" conditionals="8" coveredconditionals="6" methods="2" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.middleware">
+      <metrics statements="36" coveredstatements="18" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <file name="errorHandler.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\middleware\errorHandler.ts">
+        <metrics statements="18" coveredstatements="3" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+      </file>
+      <file name="paginationHandler.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\middleware\paginationHandler.ts">
+        <metrics statements="18" coveredstatements="15" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="24" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.models.entities">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="productModel.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\models\entities\productModel.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.routes">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="products.ts" path="C:\Users\g.visco.ISYDEDOM\OneDrive - BE THINK, SOLVE, EXECUTE S.P.A\Desktop\interviews-back-end-assignment\src\routes\products.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
