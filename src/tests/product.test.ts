@@ -3,21 +3,19 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import app from "../config/app";
 import mongoose from "mongoose";
 import Product from "../models/entities/productModel";
-
-const userId = new mongoose.Types.ObjectId().toString();
+import { setupTestDatabase, teardownTestDatabase } from "./utils/testUtils";
 
 describe("product", () => {
-  let mongoServer: MongoMemoryServer;
-
   beforeAll(async () => {
-    mongoServer = await MongoMemoryServer.create();
-    const mongoUri = mongoServer.getUri();
-    await mongoose.connect(mongoUri);
+    await setupTestDatabase();
   });
 
   afterAll(async () => {
-    await mongoose.disconnect();
-    await mongoServer.stop();
+    await teardownTestDatabase();
+  });
+
+  beforeEach(async () => {
+    await Product.deleteMany({});
   });
 
   describe("get products route", () => {

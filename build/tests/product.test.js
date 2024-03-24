@@ -13,21 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
-const mongodb_memory_server_1 = require("mongodb-memory-server");
 const app_1 = __importDefault(require("../config/app"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const productModel_1 = __importDefault(require("../models/entities/productModel"));
-const userId = new mongoose_1.default.Types.ObjectId().toString();
+const testUtils_1 = require("./utils/testUtils");
 describe("product", () => {
-    let mongoServer;
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        mongoServer = yield mongodb_memory_server_1.MongoMemoryServer.create();
-        const mongoUri = mongoServer.getUri();
-        yield mongoose_1.default.connect(mongoUri);
+        yield (0, testUtils_1.setupTestDatabase)();
     }));
     afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield mongoose_1.default.disconnect();
-        yield mongoServer.stop();
+        yield (0, testUtils_1.teardownTestDatabase)();
+    }));
+    beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield productModel_1.default.deleteMany({});
     }));
     describe("get products route", () => {
         describe("given the database is empty", () => {
