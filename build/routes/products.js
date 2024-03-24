@@ -9,6 +9,6 @@ const productModel_1 = __importDefault(require("../models/entities/productModel"
 const paginationHandler_1 = __importDefault(require("../middleware/paginationHandler"));
 const router = express_1.default.Router();
 router.get("/", (0, paginationHandler_1.default)(productModel_1.default), products_controller_1.default.getProducts);
-router.get("/searchByNameAndOrCategory", products_controller_1.default.getProductByNameAndOrCategory);
+router.get("/getProductsByNameAndOrCategory", products_controller_1.default.getProductsByNameAndOrCategory);
 router.get("/getCategoriesNameAndNumber", products_controller_1.default.getCategoriesNameAndNumber);
 exports.default = router;

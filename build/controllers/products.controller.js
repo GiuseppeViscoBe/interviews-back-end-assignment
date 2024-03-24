@@ -39,30 +39,46 @@ const getProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
                 hasPreviousPage: page > 1,
                 nextPage: page < totalPages ? page + 1 : null,
                 previousPage: page > 1 ? page - 1 : null,
-            },
+            }
         });
     }
     catch (error) {
         next(error);
     }
 });
-//@desc Get products by name and category
+//@desc Get products by name and/or category
 //@route GET/api/products
 //@access public
-const getProductByNameAndOrCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getProductsByNameAndOrCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productName = req.query.pName || "";
         const categoryName = req.query.cName || "";
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skipIndex = (page - 1) * limit;
+        const totalProducts = yield productModel_1.default.countDocuments().exec();
+        const totalPages = Math.ceil(totalProducts / limit);
         const products = yield productModel_1.default.find({
             name: { $regex: productName, $options: "i" },
             category: { $regex: categoryName, $options: "i" },
-        });
+        }).limit(limit).skip(skipIndex);
         if (products.length === 0) {
             return res
                 .status(404)
                 .json({ message: "No products found with this name" });
         }
-        res.status(200).json(products);
+        res.status(200).json({
+            products,
+            pagination: {
+                totalProducts,
+                totalPages,
+                currentPage: page,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1,
+                nextPage: page < totalPages ? page + 1 : null,
+                previousPage: page > 1 ? page - 1 : null,
+            }
+        });
     }
     catch (error) {
         next(error);
@@ -101,6 +117,6 @@ const getCategoriesNameAndNumber = (req, res, next) => __awaiter(void 0, void 0,
 });
 exports.default = {
     getProducts,
-    getProductByNameAndOrCategory,
+    getProductsByNameAndOrCategory,
     getCategoriesNameAndNumber,
 };

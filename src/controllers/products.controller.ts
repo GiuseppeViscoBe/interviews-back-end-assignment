@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Product from "../models/entities/productModel";
+  
 
 //@desc Get all products
 //@route GET/api/products
@@ -31,17 +32,17 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
         hasPreviousPage: page > 1,
         nextPage: page < totalPages ? page + 1 : null,
         previousPage: page > 1 ? page - 1 : null,
-      },
+      }
     });
   } catch (error) {
     next(error);
   }
 };
 
-//@desc Get products by name and category
+//@desc Get products by name and/or category
 //@route GET/api/products
 //@access public
-const getProductByNameAndOrCategory = async (
+const getProductsByNameAndOrCategory = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -49,11 +50,16 @@ const getProductByNameAndOrCategory = async (
   try {
     const productName = req.query.pName || "";
     const categoryName = req.query.cName || "";
+    const page: number = parseInt(req.query.page as string) || 1;
+    const limit: number = parseInt(req.query.limit as string) || 10;
+    const skipIndex: number = (page - 1) * limit;
 
+    const totalProducts = await Product.countDocuments().exec();
+    const totalPages = Math.ceil(totalProducts / limit);
     const products = await Product.find({
       name: { $regex: productName, $options: "i" },
       category: { $regex: categoryName, $options: "i" },
-    });
+    }).limit(limit).skip(skipIndex);
 
     if (products.length === 0) {
       return res
@@ -61,7 +67,18 @@ const getProductByNameAndOrCategory = async (
         .json({ message: "No products found with this name" });
     }
 
-    res.status(200).json(products);
+    res.status(200).json({
+        products,
+        pagination: {
+          totalProducts,
+          totalPages,
+          currentPage: page,
+          hasNextPage: page < totalPages,
+          hasPreviousPage: page > 1,
+          nextPage: page < totalPages ? page + 1 : null,
+          previousPage: page > 1 ? page - 1 : null,
+        }
+      });
   } catch (error) {
     next(error);
   }
@@ -107,6 +124,6 @@ const getCategoriesNameAndNumber = async (
 
 export default {
   getProducts,
-  getProductByNameAndOrCategory,
+  getProductsByNameAndOrCategory,
   getCategoriesNameAndNumber,
 };
