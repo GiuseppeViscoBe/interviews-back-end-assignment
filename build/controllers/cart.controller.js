@@ -44,14 +44,11 @@ const addProductsToCartHandler = (req, res, next) => __awaiter(void 0, void 0, v
                 .status(400)
                 .json({ message: "Product ID and quantity are required" });
         }
-        const { product, isQuantityAvailable } = yield productsService.addProductToCart(productId, quantity);
+        const { product } = yield productsService.addProductToCart(productId, quantity);
         if (!product) {
             return res
                 .status(404)
                 .json({ message: "No products found in the database" });
-        }
-        if (!isQuantityAvailable) {
-            return res.status(400).json({ message: "Quantity requested unavailable" });
         }
         res.status(200).json({ message: "Product added to cart successfully" });
     }

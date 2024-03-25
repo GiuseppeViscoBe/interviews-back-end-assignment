@@ -26,8 +26,8 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
                 $project: {
                     _id: "$product._id",
                     totalPrice: { $multiply: ["$product.price", "$product.quantity"] },
-                    quantity: "$product.quantity"
-                }
+                    quantity: "$product.quantity",
+                },
             },
             {
                 $group: {
@@ -36,28 +36,51 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
                         $push: {
                             id: "$_id",
                             total: "$totalPrice",
-                            quantity: "$quantity"
-                        }
+                            quantity: "$quantity",
+                        },
                     },
-                    totalAmount: { $sum: "$totalPrice" }
-                }
-            }
+                    totalAmount: { $sum: "$totalPrice" },
+                },
+            },
         ]);
         const userPaymentInfoRequest = {
             cardNumber: userPaymentInfo[0].cardNumber,
             expiryMonth: userPaymentInfo[0].expiryMonth,
             expiryYear: userPaymentInfo[0].expiryYear,
             cvv: userPaymentInfo[0].cvv,
-            amount: cartItems[0].totalAmount
+            amount: cartItems[0].totalAmount,
         };
         const paymentResponse = yield (0, paymentUtils_1.processPayment)(userPaymentInfoRequest);
+        // const paymentResponse: IPaymentResponse = {
+        //     transactionId: "123456789", 
+        //     status: "approved", 
+        //     productUnavailable: [], 
+        //   };
         if (paymentResponse.status === constants_1.PaymentStatus.APPROVED) {
+            const productUnavailable = [];
+            //Check if all items are available
             for (let item of cartItems[0].items) {
-                yield product_model_1.default.findByIdAndUpdate(item.id, {
-                    $inc: { quantity: -item.quantity }
-                });
+                const tmp = yield product_model_1.default.findById(item.id);
+                if (tmp && tmp.quantity < item.quantity) {
+                    productUnavailable.push({ id: item.id, isQuantityUnavailable: true });
+                }
             }
-            yield cart_model_1.default.deleteMany({});
+            if (productUnavailable.length > 0) {
+                return {
+                    transactionId: paymentResponse.transactionId,
+                    status: constants_1.PaymentStatus.APPROVED,
+                    productUnavailable: productUnavailable,
+                };
+            }
+            //If they are proceed 
+            else {
+                for (let item of cartItems[0].items) {
+                    yield product_model_1.default.findByIdAndUpdate(item.id, {
+                        $inc: { quantity: -item.quantity },
+                    });
+                }
+                yield cart_model_1.default.deleteMany({});
+            }
         }
         return paymentResponse;
     }

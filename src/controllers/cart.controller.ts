@@ -19,16 +19,13 @@ const addProductsToCartHandler = async (
         .json({ message: "Product ID and quantity are required" });
     }
 
-    const { product, isQuantityAvailable} =
+    const { product} =
       await productsService.addProductToCart(productId, quantity);
 
     if (!product) {
       return res
         .status(404)
         .json({ message: "No products found in the database" });
-    }
-    if (!isQuantityAvailable) {
-      return res.status(400).json({ message: "Quantity requested unavailable" });
     }
 
     res.status(200).json({ message: "Product added to cart successfully" });

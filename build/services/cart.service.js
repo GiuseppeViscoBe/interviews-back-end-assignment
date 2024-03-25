@@ -44,21 +44,17 @@ function addProductToCart(productId, quantity) {
         try {
             const product = yield product_model_1.default.findById(productId);
             if (!product) {
-                return { product: null, isQuantityAvailable: false };
-            }
-            const isQuantityAvailable = quantity <= product.quantity;
-            if (!isQuantityAvailable) {
-                return { product, isQuantityAvailable: false };
+                return { product: null };
             }
             const existingCartItem = yield cart_model_1.default.findOne({ "product._id": new mongoose_1.Types.ObjectId(productId) });
             if (existingCartItem) {
                 const updatedCartItem = yield cart_model_1.default.updateOne({ "product._id": new mongoose_1.Types.ObjectId(productId) }, { $inc: { "product.quantity": quantity } });
-                return { product, isQuantityAvailable };
+                return { product };
             }
             product.quantity = quantity;
             const cartItem = new cart_model_1.default({ product });
             yield cartItem.save();
-            return { product, isQuantityAvailable };
+            return { product };
         }
         catch (error) {
             throw error;

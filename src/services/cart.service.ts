@@ -41,15 +41,10 @@ export async function addProductToCart(
 ): Promise<IAddToCartResponse> {
   try {
     const product = await Product.findById(productId);
+    
 
     if (!product) {
-      return { product: null, isQuantityAvailable: false };
-    }
-
-    const isQuantityAvailable = quantity <= product.quantity;
-
-    if (!isQuantityAvailable) {
-      return { product, isQuantityAvailable: false };
+      return { product: null };
     }
 
     const existingCartItem = await Cart.findOne({ "product._id": new Types.ObjectId(productId) });
@@ -59,14 +54,14 @@ export async function addProductToCart(
         { "product._id": new Types.ObjectId(productId) },
         { $inc: { "product.quantity": quantity } }
       );
-      return { product, isQuantityAvailable };
+      return { product };
     }
 
     product.quantity = quantity;
     const cartItem = new Cart({ product });
     await cartItem.save();
 
-    return { product, isQuantityAvailable};
+    return { product};
   } catch (error) {
     throw error;
   }
