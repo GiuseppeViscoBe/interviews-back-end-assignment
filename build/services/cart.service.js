@@ -1,4 +1,6 @@
 "use strict";
+// import Product from "../models/entities/product.model";
+// import Cart from "../models/entities/cart.model";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,27 +15,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addProductToCart = void 0;
-const productModel_1 = __importDefault(require("../models/entities/productModel"));
-const cartModel_1 = __importDefault(require("../models/entities/cartModel"));
+// export async function addProductToCart(
+//   productId: string,
+//   quantity: number
+// ): Promise<IAddToCartResponse> {
+//   try {
+//     const product = await Product.findById(productId);
+//     if (!product) {
+//       return { product: null, quantityAvailable: false };
+//     }
+//     const quantityAvailable = quantity <= product.quantity;
+//     if (!quantityAvailable) {
+//       return { product, quantityAvailable : false};
+//     }
+//     product.quantity = quantity;
+//     const cartItem = new Cart({ product });
+//     await cartItem.save();
+//     return { product, quantityAvailable : true};
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+const product_model_1 = __importDefault(require("../models/entities/product.model"));
+const cart_model_1 = __importDefault(require("../models/entities/cart.model"));
+const mongoose_1 = require("mongoose");
 function addProductToCart(productId, quantity) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const product = yield productModel_1.default.findById(productId);
+            const product = yield product_model_1.default.findById(productId);
             if (!product) {
-                console.log("i am returning 404");
-                return 404;
+                return { product: null, isQuantityAvailable: false };
             }
-            if (quantity > product.availableQuantity) {
-                return 400;
+            const isQuantityAvailable = quantity <= product.quantity;
+            if (!isQuantityAvailable) {
+                return { product, isQuantityAvailable: false };
             }
-            const cartItem = new cartModel_1.default({
-                product: product
-            });
+            const existingCartItem = yield cart_model_1.default.findOne({ "product._id": new mongoose_1.Types.ObjectId(productId) });
+            if (existingCartItem) {
+                const updatedCartItem = yield cart_model_1.default.updateOne({ "product._id": new mongoose_1.Types.ObjectId(productId) }, { $inc: { "product.quantity": quantity } });
+                return { product, isQuantityAvailable };
+            }
+            product.quantity = quantity;
+            const cartItem = new cart_model_1.default({ product });
             yield cartItem.save();
-            return null;
+            return { product, isQuantityAvailable };
         }
         catch (error) {
-            throw (error);
+            throw error;
         }
     });
 }

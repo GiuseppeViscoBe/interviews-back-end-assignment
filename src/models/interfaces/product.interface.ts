@@ -3,6 +3,6 @@ interface IProduct extends Document {
   name: string;
   image: string;
   price: number;
-  availableQuantity: number;
+  quantity: number;
   category: string;
 }

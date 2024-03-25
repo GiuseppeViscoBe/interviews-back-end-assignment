@@ -1,4 +1,4 @@
-import Product from "../models/entities/productModel";
+import Product from "../models/entities/product.model";
 
 export const getCategoriesNameAndNumber = async() => {
   try {

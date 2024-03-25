@@ -27,5 +27,5 @@ const mongoose_1 = __importStar(require("mongoose"));
 const cartSchema = new mongoose_1.Schema({
     product: { type: Object, required: true }
 });
-const Cart = mongoose_1.default.model("Cart", cartSchema);
+const Cart = mongoose_1.default.model("Cart", cartSchema, "Cart");
 exports.default = Cart;

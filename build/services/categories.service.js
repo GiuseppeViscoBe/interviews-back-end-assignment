@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCategoriesNameAndNumber = void 0;
-const productModel_1 = __importDefault(require("../models/entities/productModel"));
+const product_model_1 = __importDefault(require("../models/entities/product.model"));
 const getCategoriesNameAndNumber = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const categoriesWithProductCount = yield productModel_1.default.aggregate([
+        const categoriesWithProductCount = yield product_model_1.default.aggregate([
             {
                 $group: {
                     _id: "$category",

@@ -13,13 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getProductsByNameAndOrCategory = exports.getAllProducts = void 0;
-const productModel_1 = __importDefault(require("../models/entities/productModel"));
+const product_model_1 = __importDefault(require("../models/entities/product.model"));
 const getAllProducts = (page, limit) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const skipIndex = (page - 1) * limit;
-        const totalProducts = yield productModel_1.default.countDocuments().exec();
+        const totalProducts = yield product_model_1.default.countDocuments().exec();
         const totalPages = Math.ceil(totalProducts / limit);
-        const products = yield productModel_1.default.find().limit(limit).skip(skipIndex);
+        const products = yield product_model_1.default.find().limit(limit).skip(skipIndex);
         return {
             products,
             pagination: {
@@ -41,9 +41,9 @@ exports.getAllProducts = getAllProducts;
 const getProductsByNameAndOrCategory = (productName, categoryName, page, limit) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const skipIndex = (page - 1) * limit;
-        const totalProducts = yield productModel_1.default.countDocuments().exec();
+        const totalProducts = yield product_model_1.default.countDocuments().exec();
         const totalPages = Math.ceil(totalProducts / limit);
-        const products = yield productModel_1.default.find({
+        const products = yield product_model_1.default.find({
             name: { $regex: productName, $options: "i" },
             category: { $regex: categoryName, $options: "i" },
         })

@@ -1,9 +1,10 @@
 import express from 'express';
 import productsController from '../controllers/products.controller';
-import Product from '../models/entities/productModel';
+import Product from '../models/entities/product.model';
 import paginationHandler from '../middleware/paginationHandler';
 import categoriesController from '../controllers/categories.controller';
 import cartController from '../controllers/cart.controller';
+import orderPlacementController from '../controllers/orderPlacement.controller';
 
 const router = express.Router();
 
@@ -16,4 +17,7 @@ router.get("/getCategoriesNameAndNumber", categoriesController.getCategoriesName
 
 //Routes for carte controller
 router.post("/addProductsToCart", cartController.addProductsToCartHandler)
+
+//Routes for order placement
+router.post("/placeOrder", orderPlacementController.placeOrderHandler)
 export default router;

@@ -1,7 +1,7 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import app from "../config/app";
-import Product from "../models/entities/productModel";
+import Product from "../models/entities/product.model";
 import supertest from "supertest";
 import { setupTestDatabase, teardownTestDatabase } from "./utils/testUtils";
 
@@ -28,7 +28,7 @@ describe("getCategoriesNameAndNumber", () => {
           name: "Tatiera",
           image: "url_tastiera",
           price: 10.99,
-          availableQuantity: 50,
+          quantity: 50,
           category: "tecnologia",
         },
         {
@@ -36,7 +36,7 @@ describe("getCategoriesNameAndNumber", () => {
           name: "Mouse",
           image: "url_mouse",
           price: 5.99,
-          availableQuantity: 100,
+          quantity: 100,
           category: "tecnologia",
         },
         {
@@ -44,7 +44,7 @@ describe("getCategoriesNameAndNumber", () => {
           name: "Padella",
           image: "url_padella",
           price: 10.99,
-          availableQuantity: 50,
+          quantity: 50,
           category: "Cucina",
         },
         {
@@ -52,7 +52,7 @@ describe("getCategoriesNameAndNumber", () => {
           name: "Spatola",
           image: "url_Spatola",
           price: 5.99,
-          availableQuantity: 100,
+          quantity: 100,
           category: "Cucina",
         },
         {
@@ -60,7 +60,7 @@ describe("getCategoriesNameAndNumber", () => {
           name: "Quaderno",
           image: "url_quaderno",
           price: 10.99,
-          availableQuantity: 50,
+          quantity: 50,
           category: "cancelleria",
         },
       ];

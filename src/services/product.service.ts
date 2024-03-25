@@ -1,9 +1,9 @@
-import Product from "../models/entities/productModel";
+import Product from "../models/entities/product.model";
 
 export const getAllProducts = async (
   page: number,
   limit: number
-): Promise<{ products: any[]; pagination: IPagination }> => {
+): Promise<{ products: IProduct[]; pagination: IPagination }> => {
   try {
     const skipIndex: number = (page - 1) * limit;
 
@@ -34,7 +34,7 @@ export const getProductsByNameAndOrCategory = async (
   categoryName: string,
   page: number,
   limit: number
-): Promise<{ products: any[]; pagination: IPagination }> => {
+): Promise<{ products: IProduct[]; pagination: IPagination }> => {
 
     try{
         const skipIndex: number = (page - 1) * limit;

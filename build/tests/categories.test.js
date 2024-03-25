@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("../config/app"));
-const productModel_1 = __importDefault(require("../models/entities/productModel"));
+const product_model_1 = __importDefault(require("../models/entities/product.model"));
 const supertest_1 = __importDefault(require("supertest"));
 const testUtils_1 = require("./utils/testUtils");
 describe("getCategoriesNameAndNumber", () => {
@@ -25,7 +25,7 @@ describe("getCategoriesNameAndNumber", () => {
         yield (0, testUtils_1.teardownTestDatabase)();
     }));
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield productModel_1.default.deleteMany({});
+        yield product_model_1.default.deleteMany({});
     }));
     describe("given there are categories in the database", () => {
         it("should return categories name and number of products per category", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,7 +35,7 @@ describe("getCategoriesNameAndNumber", () => {
                     name: "Tatiera",
                     image: "url_tastiera",
                     price: 10.99,
-                    availableQuantity: 50,
+                    quantity: 50,
                     category: "tecnologia",
                 },
                 {
@@ -43,7 +43,7 @@ describe("getCategoriesNameAndNumber", () => {
                     name: "Mouse",
                     image: "url_mouse",
                     price: 5.99,
-                    availableQuantity: 100,
+                    quantity: 100,
                     category: "tecnologia",
                 },
                 {
@@ -51,7 +51,7 @@ describe("getCategoriesNameAndNumber", () => {
                     name: "Padella",
                     image: "url_padella",
                     price: 10.99,
-                    availableQuantity: 50,
+                    quantity: 50,
                     category: "Cucina",
                 },
                 {
@@ -59,7 +59,7 @@ describe("getCategoriesNameAndNumber", () => {
                     name: "Spatola",
                     image: "url_Spatola",
                     price: 5.99,
-                    availableQuantity: 100,
+                    quantity: 100,
                     category: "Cucina",
                 },
                 {
@@ -67,11 +67,11 @@ describe("getCategoriesNameAndNumber", () => {
                     name: "Quaderno",
                     image: "url_quaderno",
                     price: 10.99,
-                    availableQuantity: 50,
+                    quantity: 50,
                     category: "cancelleria",
                 },
             ];
-            const products = yield productModel_1.default.create(categoriesPayload);
+            const products = yield product_model_1.default.create(categoriesPayload);
             const response = yield (0, supertest_1.default)(app_1.default).get("/api/getCategoriesNameAndNumber");
             expect(response.status).toBe(200);
             expect(response.body).toHaveLength(3);

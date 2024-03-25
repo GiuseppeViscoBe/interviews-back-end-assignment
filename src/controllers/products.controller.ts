@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Product from "../models/entities/productModel";
+import Product from "../models/entities/product.model";
 import * as productService from "../services/product.service";
 
 //@desc Get all products

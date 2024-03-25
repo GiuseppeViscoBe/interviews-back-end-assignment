@@ -2,7 +2,7 @@ import supertest from "supertest";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import app from "../config/app";
 import mongoose from "mongoose";
-import Product from "../models/entities/productModel";
+import Product from "../models/entities/product.model";
 import { setupTestDatabase, teardownTestDatabase } from "./utils/testUtils";
 
 describe("product", () => {
@@ -35,7 +35,7 @@ describe("product", () => {
             name: "Prodotto 1",
             image: "url_immagine_1",
             price: 10.99,
-            availableQuantity: 50,
+            quantity: 50,
             category: "Categoria 1",
           },
           {
@@ -43,7 +43,7 @@ describe("product", () => {
             name: "Prodotto 2",
             image: "url_immagine_2",
             price: 5.99,
-            availableQuantity: 100,
+            quantity: 100,
             category: "Categoria 2",
           },
         ];
@@ -69,8 +69,8 @@ describe("product", () => {
           expect(responseProduct.name).toBe(matchedProduct?.name);
           expect(responseProduct.image).toBe(matchedProduct?.image);
           expect(responseProduct.price).toBe(matchedProduct?.price);
-          expect(responseProduct.availableQuantity).toBe(
-            matchedProduct?.availableQuantity
+          expect(responseProduct.quantity).toBe(
+            matchedProduct?.quantity
           );
           expect(responseProduct.category).toBe(matchedProduct?.category);
         });
@@ -87,7 +87,7 @@ describe("product", () => {
             name: "Prodotto 1",
             image: "url_immagine_1",
             price: 10.99,
-            availableQuantity: 50,
+            quantity: 50,
             category: "Categoria 1",
           },
           {
@@ -95,7 +95,7 @@ describe("product", () => {
             name: "Prodotto 2",
             image: "url_immagine_2",
             price: 5.99,
-            availableQuantity: 100,
+            quantity: 100,
             category: "Categoria 2",
           },
           {
@@ -103,7 +103,7 @@ describe("product", () => {
             name: "Prodotto 1",
             image: "url_immagine_1",
             price: 10.99,
-            availableQuantity: 50,
+            quantity: 50,
             category: "Categoria 1",
           },
         ];
@@ -136,7 +136,7 @@ describe("product", () => {
             name: "Prodotto 1",
             image: "url_immagine_1",
             price: 10.99,
-            availableQuantity: 50,
+            quantity: 50,
             category: "Categoria 1",
           },
           {
@@ -144,7 +144,7 @@ describe("product", () => {
             name: "Prodotto 2",
             image: "url_immagine_2",
             price: 5.99,
-            availableQuantity: 100,
+            quantity: 100,
             category: "Categoria 2",
           },
         ];
@@ -175,7 +175,7 @@ describe("product", () => {
             name: "Prodotto 1",
             image: "url_immagine_1",
             price: 10.99,
-            availableQuantity: 50,
+            quantity: 50,
             category: "Categoria 1",
           },
           {
@@ -183,7 +183,7 @@ describe("product", () => {
             name: "Prodotto 2",
             image: "url_immagine_2",
             price: 5.99,
-            availableQuantity: 100,
+            quantity: 100,
             category: "Categoria 2",
           },
         ];

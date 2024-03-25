@@ -40,23 +40,25 @@ const addProductsToCartHandler = (req, res, next) => __awaiter(void 0, void 0, v
     try {
         const { productId, quantity } = req.body;
         if (!productId || !quantity) {
-            return res.status(400).json({ message: "Product ID and quantity are required" });
+            return res
+                .status(400)
+                .json({ message: "Product ID and quantity are required" });
         }
-        const error = yield productsService.addProductToCart(productId, quantity);
-        if (error === 400) {
-            res.status(400).json({ message: "Quantity requested unavailable" });
+        const { product, isQuantityAvailable } = yield productsService.addProductToCart(productId, quantity);
+        if (!product) {
+            return res
+                .status(404)
+                .json({ message: "No products found in the database" });
         }
-        else if (error === 404) {
-            res.status(400).json({ message: "No products were found with this id" });
+        if (!isQuantityAvailable) {
+            return res.status(400).json({ message: "Quantity requested unavailable" });
         }
-        else {
-            res.status(200).json({ message: "Product added to cart successfully" });
-        }
+        res.status(200).json({ message: "Product added to cart successfully" });
     }
     catch (error) {
         next(error);
     }
 });
 exports.default = {
-    addProductsToCartHandler
+    addProductsToCartHandler,
 };

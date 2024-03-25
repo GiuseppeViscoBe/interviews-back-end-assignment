@@ -1,4 +1,4 @@
-import Product from "../models/entities/productModel";
+import Product from "../models/entities/product.model";
 
 export interface PaginationResult {
     products: typeof Product[];
