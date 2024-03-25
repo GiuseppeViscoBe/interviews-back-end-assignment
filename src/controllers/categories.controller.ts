@@ -1,31 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import Product from "../models/entities/productModel";
-  
+import * as categoriesService from "../services/categories.service"
 
 //@desc Get categories name and number of products per category
 //@route GET/api/products
 //@access public
-const getCategoriesNameAndNumber = async (
+const getCategoriesNameAndNumberHandler = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const categoriesWithProductCount = await Product.aggregate([
-        {
-          $group: {
-            _id: "$category",
-            productCount: { $sum: 1 },
-          },
-        },
-        {
-          $project: {
-            categoryName: "$_id",
-            productCount: 1,
-            _id: 0,
-          },
-        },
-      ]);
+      const categoriesWithProductCount = await categoriesService.getCategoriesNameAndNumber();
   
       if (categoriesWithProductCount.length === 0) {
         return res
@@ -35,10 +21,13 @@ const getCategoriesNameAndNumber = async (
   
       res.status(200).json(categoriesWithProductCount);
     } catch (error) {
-      next(error)
+      next(error);
     }
   };
 
   export default {
-    getCategoriesNameAndNumber
+    getCategoriesNameAndNumberHandler
   };
+
+
+

@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const constants_1 = require("./../constants");
 const errorHandler = (err, req, res, next) => {
-    console.log("error mid: " + err);
     const statusCode = res.statusCode ? res.statusCode : 500;
     switch (statusCode) {
         case constants_1.constants.VALIDATION_ERROR:

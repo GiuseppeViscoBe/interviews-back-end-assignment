@@ -29,7 +29,7 @@ describe("product", () => {
     describe("get products route", () => {
         describe("given the database is empty", () => {
             it("should return a 404", () => __awaiter(void 0, void 0, void 0, function* () {
-                yield (0, supertest_1.default)(app_1.default).get(`/api/getProducts}`).expect(404);
+                yield (0, supertest_1.default)(app_1.default).get(`/api/getAllProducts}`).expect(404);
             }));
         });
     });
@@ -55,7 +55,7 @@ describe("product", () => {
                     },
                 ];
                 const products = yield productModel_1.default.create(productPayloads);
-                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProducts`);
+                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getAllProducts`);
                 expect(statusCode).toBe(200);
                 expect(body).toHaveProperty("products");
                 expect(body.products.length).toBeGreaterThan(0);

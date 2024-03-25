@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { constants } from "./../constants";
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log("error mid: " + err)
+
   const statusCode: number = res.statusCode ? res.statusCode : 500;
   switch (statusCode) {
     case constants.VALIDATION_ERROR:

@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,39 +31,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const productModel_1 = __importDefault(require("../models/entities/productModel"));
+const productService = __importStar(require("../services/product.service"));
 //@desc Get all products
 //@route GET/api/products
 //@access public
-const getProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllProductsHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
-        const skipIndex = (page - 1) * limit;
-        const totalProducts = yield productModel_1.default.countDocuments().exec();
-        const totalPages = Math.ceil(totalProducts / limit);
-        const products = yield productModel_1.default.find().limit(limit).skip(skipIndex);
+        const { products, pagination } = yield productService.getAllProducts(page, limit);
         if (products.length === 0) {
-            return res
-                .status(404)
-                .json({ message: "No products found in the database" });
+            return res.status(404).json({ message: "No products found in the database" });
         }
-        res.status(200).json({
-            products,
-            pagination: {
-                totalProducts,
-                totalPages,
-                currentPage: page,
-                hasNextPage: page < totalPages,
-                hasPreviousPage: page > 1,
-                nextPage: page < totalPages ? page + 1 : null,
-                previousPage: page > 1 ? page - 1 : null,
-            }
-        });
+        res.status(200).json({ products, pagination });
     }
     catch (error) {
         next(error);
@@ -49,42 +53,23 @@ const getProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 //@desc Get products by name and/or category
 //@route GET/api/products
 //@access public
-const getProductsByNameAndOrCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getProductsByNameAndOrCategoryHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productName = req.query.pName || "";
         const categoryName = req.query.cName || "";
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
-        const skipIndex = (page - 1) * limit;
-        const totalProducts = yield productModel_1.default.countDocuments().exec();
-        const totalPages = Math.ceil(totalProducts / limit);
-        const products = yield productModel_1.default.find({
-            name: { $regex: productName, $options: "i" },
-            category: { $regex: categoryName, $options: "i" },
-        }).limit(limit).skip(skipIndex);
+        const { products, pagination } = yield productService.getProductsByNameAndOrCategory(productName, categoryName, page, limit);
         if (products.length === 0) {
-            return res
-                .status(404)
-                .json({ message: "No products found with this name" });
+            return res.status(404).json({ message: "No products found with this name" });
         }
-        res.status(200).json({
-            products,
-            pagination: {
-                totalProducts,
-                totalPages,
-                currentPage: page,
-                hasNextPage: page < totalPages,
-                hasPreviousPage: page > 1,
-                nextPage: page < totalPages ? page + 1 : null,
-                previousPage: page > 1 ? page - 1 : null,
-            }
-        });
+        res.status(200).json({ products, pagination });
     }
     catch (error) {
         next(error);
     }
 });
 exports.default = {
-    getProducts,
-    getProductsByNameAndOrCategory
+    getAllProductsHandler,
+    getProductsByNameAndOrCategoryHandler
 };

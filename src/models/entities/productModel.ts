@@ -1,7 +1,5 @@
 import mongoose, { Schema, Document, Model, Query } from "mongoose";
 
-
-
 const productSchema: Schema<IProduct> = new Schema<IProduct>({
   name: { type: String, required: true },
   image: { type: String, required: true },

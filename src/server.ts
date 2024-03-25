@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from 'dotenv';
-import router from "./routes/products"
+import router from "./routes/apiRoutes"
 import connectDb from "./config/dbConnection";
 import app from "./config/app"
 

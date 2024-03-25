@@ -21,7 +21,7 @@ describe("product", () => {
   describe("get products route", () => {
     describe("given the database is empty", () => {
       it("should return a 404", async () => {
-        await supertest(app).get(`/api/getProducts}`).expect(404);
+        await supertest(app).get(`/api/getAllProducts}`).expect(404);
       });
     });
   });
@@ -50,7 +50,7 @@ describe("product", () => {
 
         const products = await Product.create(productPayloads);
 
-        const { body, statusCode } = await supertest(app).get(`/api/getProducts`);
+        const { body, statusCode } = await supertest(app).get(`/api/getAllProducts`);
 
         expect(statusCode).toBe(200);
 
