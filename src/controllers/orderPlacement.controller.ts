@@ -20,7 +20,7 @@ const placeOrderHandler = async (
       } else {
         // Se ci sono elementi non disponibili, restituisci un messaggio con gli elementi non disponibili
         const unavailableItems = paymentResponse.productUnavailable.map(item => item.id);
-        res.status(400).json({ message: "Some items are not available", unavailableItems });
+        res.status(400).json({ message: "Some items quantity are not available", unavailableItems });
       }
     } else if (paymentResponse.status === PaymentStatus.DECLINED) {
       return res.status(401).json({ message: "The payment method was declined" });

@@ -15,12 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.placeOrder = void 0;
 const cart_model_1 = __importDefault(require("../models/entities/cart.model"));
 const userPaymentInfo_1 = __importDefault(require("../models/entities/userPaymentInfo"));
-const paymentUtils_1 = require("../utils/paymentUtils");
 const constants_1 = require("../constants");
-const product_model_1 = __importDefault(require("../models/entities/product.model"));
+const orderUtils_1 = require("../utils/orderUtils");
 const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const userPaymentInfo = yield userPaymentInfo_1.default.find();
+        const userPaymentInfo = yield userPaymentInfo_1.default.findOne();
         const cartItems = yield cart_model_1.default.aggregate([
             {
                 $project: {
@@ -44,44 +44,31 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
             },
         ]);
         const userPaymentInfoRequest = {
-            cardNumber: userPaymentInfo[0].cardNumber,
-            expiryMonth: userPaymentInfo[0].expiryMonth,
-            expiryYear: userPaymentInfo[0].expiryYear,
-            cvv: userPaymentInfo[0].cvv,
-            amount: cartItems[0].totalAmount,
+            cardNumber: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.cardNumber) || '',
+            expiryMonth: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.expiryMonth) || '',
+            expiryYear: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.expiryYear) || '',
+            cvv: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.cvv) || '',
+            amount: ((_a = cartItems[0]) === null || _a === void 0 ? void 0 : _a.totalAmount) || 0,
         };
-        const paymentResponse = yield (0, paymentUtils_1.processPayment)(userPaymentInfoRequest);
-        // const paymentResponse: IPaymentResponse = {
-        //     transactionId: "123456789", 
-        //     status: "approved", 
-        //     productUnavailable: [], 
-        //   };
-        if (paymentResponse.status === constants_1.PaymentStatus.APPROVED) {
-            const productUnavailable = [];
-            //Check if all items are available
-            for (let item of cartItems[0].items) {
-                const tmp = yield product_model_1.default.findById(item.id);
-                if (tmp && tmp.quantity < item.quantity) {
-                    productUnavailable.push({ id: item.id, isQuantityUnavailable: true });
-                }
-            }
-            if (productUnavailable.length > 0) {
-                return {
-                    transactionId: paymentResponse.transactionId,
-                    status: constants_1.PaymentStatus.APPROVED,
-                    productUnavailable: productUnavailable,
-                };
-            }
-            //If they are proceed 
-            else {
-                for (let item of cartItems[0].items) {
-                    yield product_model_1.default.findByIdAndUpdate(item.id, {
-                        $inc: { quantity: -item.quantity },
-                    });
-                }
-                yield cart_model_1.default.deleteMany({});
-            }
+        //const paymentResponse = await processPayment(userPaymentInfoRequest);
+        // Mock Payment Response for testing
+        const paymentResponse = {
+            transactionId: "123456789",
+            status: "approved",
+            productUnavailable: [],
+        };
+        if (paymentResponse.status !== constants_1.PaymentStatus.APPROVED) {
+            return paymentResponse;
         }
+        const productUnavailable = yield (0, orderUtils_1.getUnavailableProducts)(cartItems[0].items);
+        if (productUnavailable.length > 0) {
+            return {
+                transactionId: paymentResponse.transactionId,
+                status: constants_1.PaymentStatus.APPROVED,
+                productUnavailable,
+            };
+        }
+        yield (0, orderUtils_1.updateProductsAndCart)(cartItems[0].items);
         return paymentResponse;
     }
     catch (error) {

@@ -39,11 +39,6 @@ const productsService = __importStar(require("../services/cart.service"));
 const addProductsToCartHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId, quantity } = req.body;
-        if (!productId || !quantity) {
-            return res
-                .status(400)
-                .json({ message: "Product ID and quantity are required" });
-        }
         const { product } = yield productsService.addProductToCart(productId, quantity);
         if (!product) {
             return res

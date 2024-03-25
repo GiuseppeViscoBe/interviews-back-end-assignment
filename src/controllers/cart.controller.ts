@@ -13,12 +13,6 @@ const addProductsToCartHandler = async (
   try {
     const { productId, quantity } = req.body;
 
-    if (!productId || !quantity) {
-      return res
-        .status(400)
-        .json({ message: "Product ID and quantity are required" });
-    }
-
     const { product} =
       await productsService.addProductToCart(productId, quantity);
 

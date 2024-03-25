@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.23% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/52</span>
+                <span class='fraction'>10/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.48% </span>
+                <span class="strong">32.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/54</span>
+                <span class='fraction'>17/52</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.07% </span>
+                <span class="strong">24.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/39</span>
+                <span class='fraction'>9/37</span>
             </div>
         
             
@@ -124,8 +124,7 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -169,16 +168,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -229,25 +227,24 @@ const addProductsToCartHandler = <span class="fstat-no" title="function not cove
 <span class="cstat-no" title="statement not covered" >    try {</span>
         const { productId, quantity } = <span class="cstat-no" title="statement not covered" >req.body;</span>
 <span class="cstat-no" title="statement not covered" >        if (!productId || !quantity) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ message: "Product ID and quantity are required" });</span>
+<span class="cstat-no" title="statement not covered" >            return res</span>
+                .status(400)
+                .json({ message: "Product ID and quantity are required" });
         }
-        const error = <span class="cstat-no" title="statement not covered" >yield productsService.addProductToCart(productId, quantity);</span>
-<span class="cstat-no" title="statement not covered" >        if (error === 400) {</span>
-<span class="cstat-no" title="statement not covered" >            res.status(400).json({ message: "Quantity requested unavailable" });</span>
+        const { product } = <span class="cstat-no" title="statement not covered" >yield productsService.addProductToCart(productId, quantity);</span>
+<span class="cstat-no" title="statement not covered" >        if (!product) {</span>
+<span class="cstat-no" title="statement not covered" >            return res</span>
+                .status(404)
+                .json({ message: "No products found in the database" });
         }
-        else <span class="cstat-no" title="statement not covered" >if (error === 404) {</span>
-<span class="cstat-no" title="statement not covered" >            res.status(400).json({ message: "No products were found with this id" });</span>
-        }
-        else {
-<span class="cstat-no" title="statement not covered" >            res.status(200).json({ message: "Product added to cart successfully" });</span>
-        }
+<span class="cstat-no" title="statement not covered" >        res.status(200).json({ message: "Product added to cart successfully" });</span>
     }
     catch (error) {
 <span class="cstat-no" title="statement not covered" >        next(error);</span>
     }
 });
 exports.default = {
-    addProductsToCartHandler
+    addProductsToCartHandler,
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -256,7 +253,7 @@ exports.default = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-25T09:23:11.545Z
+                at 2024-03-25T20:23:49.446Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
