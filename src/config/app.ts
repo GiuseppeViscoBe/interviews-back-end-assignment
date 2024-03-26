@@ -1,5 +1,5 @@
 import express, {Application} from 'express'
-import router from "../routes/products"
+import router from "../routes/apiRoutes"
 import errorHandler from '../middleware/errorHandler';
 
 const app:Application = express()

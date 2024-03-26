@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../config/app"));
-const productModel_1 = __importDefault(require("../models/entities/productModel"));
+const product_model_1 = __importDefault(require("../models/entities/product.model"));
 const testUtils_1 = require("./utils/testUtils");
 describe("product", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
@@ -24,12 +24,12 @@ describe("product", () => {
         yield (0, testUtils_1.teardownTestDatabase)();
     }));
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield productModel_1.default.deleteMany({});
+        yield product_model_1.default.deleteMany({});
     }));
     describe("get products route", () => {
         describe("given the database is empty", () => {
             it("should return a 404", () => __awaiter(void 0, void 0, void 0, function* () {
-                yield (0, supertest_1.default)(app_1.default).get(`/api/getProducts}`).expect(404);
+                yield (0, supertest_1.default)(app_1.default).get(`/api/getAllProducts}`).expect(404);
             }));
         });
     });
@@ -42,7 +42,7 @@ describe("product", () => {
                         name: "Prodotto 1",
                         image: "url_immagine_1",
                         price: 10.99,
-                        availableQuantity: 50,
+                        quantity: 50,
                         category: "Categoria 1",
                     },
                     {
@@ -50,12 +50,12 @@ describe("product", () => {
                         name: "Prodotto 2",
                         image: "url_immagine_2",
                         price: 5.99,
-                        availableQuantity: 100,
+                        quantity: 100,
                         category: "Categoria 2",
                     },
                 ];
-                const products = yield productModel_1.default.create(productPayloads);
-                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProducts`);
+                const products = yield product_model_1.default.create(productPayloads);
+                const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getAllProducts`);
                 expect(statusCode).toBe(200);
                 expect(body).toHaveProperty("products");
                 expect(body.products.length).toBeGreaterThan(0);
@@ -66,7 +66,7 @@ describe("product", () => {
                     expect(responseProduct.name).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.name);
                     expect(responseProduct.image).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.image);
                     expect(responseProduct.price).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.price);
-                    expect(responseProduct.availableQuantity).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.availableQuantity);
+                    expect(responseProduct.quantity).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.quantity);
                     expect(responseProduct.category).toBe(matchedProduct === null || matchedProduct === void 0 ? void 0 : matchedProduct.category);
                 });
             }));
@@ -81,7 +81,7 @@ describe("product", () => {
                         name: "Prodotto 1",
                         image: "url_immagine_1",
                         price: 10.99,
-                        availableQuantity: 50,
+                        quantity: 50,
                         category: "Categoria 1",
                     },
                     {
@@ -89,7 +89,7 @@ describe("product", () => {
                         name: "Prodotto 2",
                         image: "url_immagine_2",
                         price: 5.99,
-                        availableQuantity: 100,
+                        quantity: 100,
                         category: "Categoria 2",
                     },
                     {
@@ -97,11 +97,11 @@ describe("product", () => {
                         name: "Prodotto 1",
                         image: "url_immagine_1",
                         price: 10.99,
-                        availableQuantity: 50,
+                        quantity: 50,
                         category: "Categoria 1",
                     },
                 ];
-                yield productModel_1.default.create(productPayloads);
+                yield product_model_1.default.create(productPayloads);
                 const productName = "Prodotto 1";
                 const categoryName = "Categoria 1";
                 const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProductsByNameAndOrCategory?pName=${productName}&cName=${categoryName}`);
@@ -122,7 +122,7 @@ describe("product", () => {
                         name: "Prodotto 1",
                         image: "url_immagine_1",
                         price: 10.99,
-                        availableQuantity: 50,
+                        quantity: 50,
                         category: "Categoria 1",
                     },
                     {
@@ -130,11 +130,11 @@ describe("product", () => {
                         name: "Prodotto 2",
                         image: "url_immagine_2",
                         price: 5.99,
-                        availableQuantity: 100,
+                        quantity: 100,
                         category: "Categoria 2",
                     },
                 ];
-                yield productModel_1.default.create(productPayloads);
+                yield product_model_1.default.create(productPayloads);
                 const productName = "Prodotto 1";
                 const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProductsByNameAndOrCategory?pName=${productName}`);
                 expect(statusCode).toBe(200);
@@ -153,7 +153,7 @@ describe("product", () => {
                         name: "Prodotto 1",
                         image: "url_immagine_1",
                         price: 10.99,
-                        availableQuantity: 50,
+                        quantity: 50,
                         category: "Categoria 1",
                     },
                     {
@@ -161,11 +161,11 @@ describe("product", () => {
                         name: "Prodotto 2",
                         image: "url_immagine_2",
                         price: 5.99,
-                        availableQuantity: 100,
+                        quantity: 100,
                         category: "Categoria 2",
                     },
                 ];
-                yield productModel_1.default.create(productPayloads);
+                yield product_model_1.default.create(productPayloads);
                 const categoryName = "Categoria 1";
                 const { body, statusCode } = yield (0, supertest_1.default)(app_1.default).get(`/api/getProductsByNameAndOrCategory?cName=${categoryName}`);
                 expect(statusCode).toBe(200);
