@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import Product from "../models/entities/product.model";
 import * as categoriesService from "../services/categories.service"
 
 //@desc Get categories name and number of products per category
-//@route GET/api/products
+//@route GET/api/getCategoriesNameAndNumber
 //@access public
 const getCategoriesNameAndNumberHandler = async (
     req: Request,

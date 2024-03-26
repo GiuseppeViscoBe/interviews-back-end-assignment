@@ -1,7 +1,5 @@
 import express from 'express';
 import productsController from '../controllers/products.controller';
-import Product from '../models/entities/product.model';
-import paginationHandler from '../middleware/paginationHandler';
 import categoriesController from '../controllers/categories.controller';
 import cartController from '../controllers/cart.controller';
 import orderPlacementController from '../controllers/orderPlacement.controller';

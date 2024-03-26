@@ -45,21 +45,29 @@ const placeOrderHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             res.status(400).json({ message: "The cart is empty" });
         }
         if ((paymentResponse === null || paymentResponse === void 0 ? void 0 : paymentResponse.status) === constants_1.PaymentStatus.APPROVED) {
-            // Se il pagamento è approvato e non ci sono elementi non disponibili
-            if (!paymentResponse.productUnavailable || paymentResponse.productUnavailable.length === 0) {
+            if (!paymentResponse.productUnavailable ||
+                paymentResponse.productUnavailable.length === 0) {
                 res.status(200).json({ message: "The order was placed successfully" });
             }
             else {
-                // Se ci sono elementi non disponibili, restituisci un messaggio con gli elementi non disponibili
-                const unavailableItems = paymentResponse.productUnavailable.map(item => item.id);
-                res.status(400).json({ message: "Some items quantity are not available", unavailableItems });
+                const unavailableItems = paymentResponse.productUnavailable.map((item) => item.id);
+                res
+                    .status(400)
+                    .json({
+                    message: "Some items quantity are not available",
+                    unavailableItems,
+                });
             }
         }
         else if ((paymentResponse === null || paymentResponse === void 0 ? void 0 : paymentResponse.status) === constants_1.PaymentStatus.DECLINED) {
-            return res.status(401).json({ message: "The payment method was declined" });
+            return res
+                .status(401)
+                .json({ message: "The payment method was declined" });
         }
         else if ((paymentResponse === null || paymentResponse === void 0 ? void 0 : paymentResponse.status) === constants_1.PaymentStatus.ERROR) {
-            return res.status(500).json({ message: "There was an unidentified error with the payment" });
+            return res
+                .status(500)
+                .json({ message: "There was an unidentified error with the payment" });
         }
     }
     catch (error) {
@@ -67,5 +75,5 @@ const placeOrderHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.default = {
-    placeOrderHandler
+    placeOrderHandler,
 };

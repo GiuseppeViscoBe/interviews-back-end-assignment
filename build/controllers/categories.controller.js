@@ -34,7 +34,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const categoriesService = __importStar(require("../services/categories.service"));
 //@desc Get categories name and number of products per category
-//@route GET/api/products
+//@route GET/api/getCategoriesNameAndNumber
 //@access public
 const getCategoriesNameAndNumberHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
