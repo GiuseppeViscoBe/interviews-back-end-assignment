@@ -1,5 +1,4 @@
 
-// Mock dei dati di un prodotto
 export const mockProduct = {
     _id: '66027650e3db8c0bb8ff2b75',
     product: {
@@ -14,7 +13,6 @@ export const mockProduct = {
     __v: 0
   };
   
-  // Mock dei dati di un carrello
   export const mockCart = [
     {
       _id: '66027650e3db8c0bb8ff2b75',

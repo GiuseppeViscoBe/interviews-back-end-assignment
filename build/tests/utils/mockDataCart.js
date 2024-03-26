@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mockCart = exports.mockProduct = void 0;
-// Mock dei dati di un prodotto
 exports.mockProduct = {
     _id: '66027650e3db8c0bb8ff2b75',
     product: {
@@ -15,7 +14,6 @@ exports.mockProduct = {
     },
     __v: 0
 };
-// Mock dei dati di un carrello
 exports.mockCart = [
     {
         _id: '66027650e3db8c0bb8ff2b75',

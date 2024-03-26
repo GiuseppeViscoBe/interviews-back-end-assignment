@@ -30,6 +30,7 @@ describe("getCategoriesNameAndNumber", () => {
           price: 10.99,
           quantity: 50,
           category: "tecnologia",
+          extraPoints: 2
         },
         {
           id: 2,
@@ -38,6 +39,7 @@ describe("getCategoriesNameAndNumber", () => {
           price: 5.99,
           quantity: 100,
           category: "tecnologia",
+          extraPoints: 2
         },
         {
           id: 1,
@@ -46,6 +48,7 @@ describe("getCategoriesNameAndNumber", () => {
           price: 10.99,
           quantity: 50,
           category: "Cucina",
+          extraPoints: 2
         },
         {
           id: 2,
@@ -54,6 +57,7 @@ describe("getCategoriesNameAndNumber", () => {
           price: 5.99,
           quantity: 100,
           category: "Cucina",
+          extraPoints: 2
         },
         {
           id: 1,
@@ -62,6 +66,7 @@ describe("getCategoriesNameAndNumber", () => {
           price: 10.99,
           quantity: 50,
           category: "cancelleria",
+          extraPoints: 2
         },
       ];
 

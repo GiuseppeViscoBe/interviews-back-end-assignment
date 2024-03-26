@@ -37,6 +37,7 @@ describe("product", () => {
             price: 10.99,
             quantity: 50,
             category: "Categoria 1",
+            extraPoints: 2
           },
           {
             id: 2,
@@ -45,6 +46,7 @@ describe("product", () => {
             price: 5.99,
             quantity: 100,
             category: "Categoria 2",
+            extraPoints: 2
           },
         ];
 
@@ -89,6 +91,7 @@ describe("product", () => {
             price: 10.99,
             quantity: 50,
             category: "Categoria 1",
+            extraPoints: 2
           },
           {
             id: 2,
@@ -97,6 +100,7 @@ describe("product", () => {
             price: 5.99,
             quantity: 100,
             category: "Categoria 2",
+            extraPoints: 2
           },
           {
             id: 1,
@@ -105,6 +109,7 @@ describe("product", () => {
             price: 10.99,
             quantity: 50,
             category: "Categoria 1",
+            extraPoints: 2
           },
         ];
   
@@ -138,6 +143,7 @@ describe("product", () => {
             price: 10.99,
             quantity: 50,
             category: "Categoria 1",
+            extraPoints: 2
           },
           {
             id: 2,
@@ -146,6 +152,7 @@ describe("product", () => {
             price: 5.99,
             quantity: 100,
             category: "Categoria 2",
+            extraPoints: 2
           },
         ];
   
@@ -177,6 +184,7 @@ describe("product", () => {
             price: 10.99,
             quantity: 50,
             category: "Categoria 1",
+            extraPoints: 2
           },
           {
             id: 2,
@@ -185,6 +193,7 @@ describe("product", () => {
             price: 5.99,
             quantity: 100,
             category: "Categoria 2",
+            extraPoints: 2
           },
         ];
   
