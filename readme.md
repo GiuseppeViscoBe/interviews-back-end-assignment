@@ -87,4 +87,303 @@ Update the system to include this information in the whole process.
 
 ## How to run
 
-...
+<img src="https://github.com/GiuseppeViscoBe/interviews-back-end-assignment/assets/101564368/b31918cf-b1f9-4ed0-bbdc-265a1b31bb37" width="200" height="200" />
+
+#### FreshCart Market Backend Documentation
+
+To run the FreshCart Market backend, follow these steps:
+
+1. Ensure you have Node.js and npm installed on your machine.
+
+2. Clone the repository from GitHub:
+
+   ```bash
+   git clone https://github.com/GiuseppeViscoBe/interviews-back-end-assignment.git
+   cd interviews-back-end-assignment
+   cd interviews-back-end-assignment
+   cd interviews-back-end-assignment
+```
+
+## Environment Variables
+
+- `PORT`: Specifies the port number on which the server will listen. Default value is `8000`.
+
+- `CONNECTION_STRING`: Specifies the MongoDB connection string used to connect to the database. It should be in the format `mongodb+srv://<username>:<password>@<cluster>/<database>`.
+  
+
+Make sure to set these environment variables appropriately before running the server. You can set them in a `.env` file in the project root directory or as system environment variables.
+
+### Overview
+The FreshCart Market backend provides the necessary functionality to support a grocery e-commerce website. Users can browse available products, search by category or product name, add products to their cart, place orders, and make payments. Additionally, the backend incorporates a membership reward program where users earn points based on their purchases.
+
+API Endpoints
+## Product Controller Documentation
+
+### Overview
+
+The Product Controller provides endpoints to retrieve product data from the FreshCart Market backend.
+
+### Endpoints
+
+#### Get all products
+
+- **Description**: Retrieves all available products from the database.
+- **Route**: GET /api/getAllProducts
+- **Access**: Public
+- **Request Parameters**:
+  - `page` (optional): Specifies the page number for paginated results (default: 1).
+  - `limit` (optional): Specifies the number of products per page (default: 10).
+- **Response**:
+  - `products`: Array of Product objects.
+  - `pagination`: Pagination information including total pages, total products, current page, and limit.
+
+#### Get products by name and/or category
+
+- **Description**: Retrieves products matching the specified name and/or category from the database.
+- **Route**: GET /api/products
+- **Access**: Public
+- **Request Parameters**:
+  - `pName` (optional): Specifies the product name to search for.
+  - `cName` (optional): Specifies the category name to filter products by.
+  - `page` (optional): Specifies the page number for paginated results (default: 1).
+  - `limit` (optional): Specifies the number of products per page (default: 10).
+- **Response**:
+  - `products`: Array of Product objects matching the search criteria.
+  - `pagination`: Pagination information including total pages, total products, current page, and limit.
+
+### Error Handling
+
+- If no products are found, the API returns a 404 status with an appropriate error message.
+- If an error occurs during processing, the error is passed to the error handling middleware for centralized error handling.
+
+### Example Usage
+
+```javascript
+// Retrieve all products
+GET /api/getAllProducts
+
+// Retrieve products by name and/or category
+GET /api/getProductsByNameAndOrCategory?pName=mouse&cName=electronics&page=1&limit=10
+
+```
+
+### Example Response
+
+```json
+{
+  "products": [
+    {
+      "_id": "6602d09f5df1646ece7aad53",
+      "id": 1,
+      "name": "mouse",
+      "image": "url_immagine_1",
+      "price": 10.99,
+      "quantity": 940,
+      "category": "electronics",
+      "extraPoints": 1
+    }
+  ],
+  "pagination": {
+    "totalProducts": 15,
+    "totalPages": 2,
+    "currentPage": 1,
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "nextPage": 2,
+    "previousPage": null
+  }
+}
+
+```
+
+## Categories Controller Documentation
+
+### Overview
+
+The Categories Controller provides an endpoint to retrieve category names and the number of products per category from the FreshCart Market backend.
+
+### Endpoint
+
+#### Get categories name and number of products per category
+
+- **Description**: Retrieves the names of all categories along with the number of products in each category.
+- **Route**: GET /api/categories
+- **Access**: Public
+- **Response**:
+  - Array of objects containing category names and product counts.
+
+### Example Usage
+
+```javascript
+// Retrieve all categories
+GET /api/getCategoriesNameAndNumber
+
+```
+### Example Response
+
+```json
+[
+  {
+    "productCount": 4,
+    "categoryName": "Categoria 3"
+  },
+  {
+    "productCount": 5,
+    "categoryName": "Categoria 1"
+  },
+  {
+    "productCount": 6,
+    "categoryName": "Categoria 2"
+  }
+]
+```
+## Cart Controller Documentation
+
+### Overview
+
+The Cart Controller provides endpoints to manage the shopping cart functionality in the FreshCart Market backend.
+
+### Endpoints
+
+#### Add product to cart
+
+- **Description**: Adds a product to the user's shopping cart.
+- **Route**: POST /api/addProductsToCart
+- **Access**: Public
+- **Request Body**:
+  - `productId`: The ID of the product to add to the cart.
+  - `quantity`: The quantity of the product to add.
+- **Response**:
+  - If successful, returns a 200 status with a message indicating that the product was added to the cart.
+  - If the product is not found, returns a 404 status with an appropriate error message.
+
+#### Get products in the cart
+
+- **Description**: Retrieves the products currently in the user's shopping cart.
+- **Route**: GET /api/GetCart
+- **Access**: Public
+- **Response**:
+  - If the cart is not empty, returns a 200 status with the contents of the cart.
+  - If the cart is empty, returns a 404 status with an appropriate error message.
+
+### Error Handling
+
+- If the requested product is not found when adding to the cart, the API returns a 404 status with an appropriate error message.
+- If no products are found in the cart when retrieving the cart contents, the API returns a 404 status with an appropriate error message.
+- If an error occurs during processing, the error is passed to the error handling middleware for centralized error handling.
+
+### Usage
+
+- Ensure the backend server is running and accessible.
+- Send HTTP requests to the specified endpoints to add products to the cart or retrieve the cart contents.
+
+### Example Usage
+
+```javascript
+// Add product to cart
+POST /api/addProductsToCart
+Request Body:
+{
+  "productId": "123456",
+  "quantity": 2
+}
+
+// Get products in the cart
+GET /api/GetCart
+```
+### Example Response
+
+```json
+{
+  "cart": [
+    {
+      "_id": "66032cdcb5be892fdfb53025",
+      "product": {
+        "_id": "6602d09f5df1646ece7aad54",
+        "id": 2,
+        "name": "Prodotto 2",
+        "image": "url_immagine_2",
+        "price": 5.99,
+        "quantity": 10,
+        "category": "Categoria 2",
+        "extraPoints": 10
+      }
+    }
+  ]
+}
+
+
+```
+
+
+## Order Placement Controller Documentation
+
+### Overview
+
+The Order Placement Controller handles the process of placing orders in the FreshCart Market backend.
+
+### Endpoint
+
+#### Place the Order
+
+- **Description**: Places an order with the specified products, quantities, and payment details.
+- **Route**: POST /api/placeOrder
+- **Access**: Public
+- **Request Body**:
+  - `usePoints` (boolean): Specifies whether the user wants to use reward points for the order.
+- **Response**:
+  - Success:
+    - Status: 200 OK
+    - Message: "The order was placed successfully"
+  - Cart Empty:
+    - Status: 400 Bad Request
+    - Message: "The cart is empty"
+  - Payment Declined:
+    - Status: 401 Unauthorized
+    - Message: "The payment method was declined"
+  - Payment Error:
+    - Status: 500 Internal Server Error
+    - Message: "There was an unidentified error with the payment"
+  - Some Items Unavailable:
+    - Status: 400 Bad Request
+    - Message: "Some items quantity are not available"
+    - `unavailableItems`: Array of IDs of unavailable items
+
+### Error Handling
+
+- If the cart is empty, the API returns a 400 status with an appropriate error message.
+- If the payment method is declined, the API returns a 401 status with an appropriate error message.
+- If there is an unidentified error with the payment, the API returns a 500 status with an appropriate error message.
+- If some items' quantity is not available, the API returns a 400 status with an appropriate error message and the IDs of unavailable items.
+
+### Usage
+
+- Ensure the backend server is running and accessible.
+- Send an HTTP POST request to the specified endpoint with the required parameters to place an order.
+
+### Example Request
+
+```json
+POST /api/placeOrder
+Content-Type: application/json
+
+{
+  "usePoints": false
+}
+```
+
+## Testing
+
+
+To run automated tests (developer with Jest), use the following command:
+
+```javascript
+    npm run test
+```
+
+## Additional Information
+
+- **Contact**: For questions or support, please contact [visco.giuseppe93@gmail.com](visco.giuseppe93@gmail.com) .
+
+- **License**: This project is licensed under the [MIT License](link_to_license_file).
+
