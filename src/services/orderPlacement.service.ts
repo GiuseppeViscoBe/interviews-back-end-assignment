@@ -1,7 +1,7 @@
 import Cart from "../models/entities/cart.model";
 import UserPaymentInfo from "../models/entities/userPaymentInfo.model";
 import IUserPaymentInfoRequest from "../models/interfaces/userPaymentRequest.interface";
-import IUserPaymentInfo from "../models/interfaces/userInfo";
+import {IUserPaymentInfo} from "../models/interfaces/userInfo";
 import { processPayment } from "../utils/paymentUtils";
 import { PaymentStatus } from "../constants";
 import Product from "../models/entities/product.model";
@@ -34,6 +34,10 @@ export const placeOrder = async () => {
         },
       ]);
   
+      if (!cartItems || cartItems.length === 0 || !cartItems[0].items) {
+        return null; 
+    }
+    
       const userPaymentInfoRequest: IUserPaymentInfoRequest = {
         cardNumber: userPaymentInfo?.cardNumber || '',
         expiryMonth: userPaymentInfo?.expiryMonth || '',
@@ -48,6 +52,7 @@ export const placeOrder = async () => {
       const paymentResponse: IPaymentResponse = {
         transactionId: "123456789",
         status: "approved",
+        cartStatus : true,
         productUnavailable: [],
       };
   
@@ -64,8 +69,9 @@ export const placeOrder = async () => {
           productUnavailable,
         };
       }
-  
+      //console.log(cartItems[0].items)
       await updateProductsAndCart(cartItems[0].items);
+      
       return paymentResponse;
     } catch (error) {
       throw error;

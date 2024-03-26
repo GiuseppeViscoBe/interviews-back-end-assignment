@@ -17,6 +17,7 @@ const product_model_1 = __importDefault(require("../models/entities/product.mode
 const supertest_1 = __importDefault(require("supertest"));
 const testUtils_1 = require("./utils/testUtils");
 describe("getCategoriesNameAndNumber", () => {
+    let mongoServer;
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield (0, testUtils_1.setupTestDatabase)();
     }));

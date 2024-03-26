@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.placeOrder = void 0;
 const cart_model_1 = __importDefault(require("../models/entities/cart.model"));
-const userPaymentInfo_1 = __importDefault(require("../models/entities/userPaymentInfo"));
+const userPaymentInfo_model_1 = __importDefault(require("../models/entities/userPaymentInfo.model"));
 const constants_1 = require("../constants");
 const orderUtils_1 = require("../utils/orderUtils");
 const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
-        const userPaymentInfo = yield userPaymentInfo_1.default.findOne();
+        const userPaymentInfo = yield userPaymentInfo_model_1.default.findOne();
         const cartItems = yield cart_model_1.default.aggregate([
             {
                 $project: {
@@ -43,6 +43,9 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
                 },
             },
         ]);
+        if (!cartItems || cartItems.length === 0 || !cartItems[0].items) {
+            return null;
+        }
         const userPaymentInfoRequest = {
             cardNumber: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.cardNumber) || '',
             expiryMonth: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.expiryMonth) || '',
@@ -55,6 +58,7 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
         const paymentResponse = {
             transactionId: "123456789",
             status: "approved",
+            cartStatus: true,
             productUnavailable: [],
         };
         if (paymentResponse.status !== constants_1.PaymentStatus.APPROVED) {
@@ -68,6 +72,7 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
                 productUnavailable,
             };
         }
+        //console.log(cartItems[0].items)
         yield (0, orderUtils_1.updateProductsAndCart)(cartItems[0].items);
         return paymentResponse;
     }
