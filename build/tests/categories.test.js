@@ -17,6 +17,7 @@ const product_model_1 = __importDefault(require("../models/entities/product.mode
 const supertest_1 = __importDefault(require("supertest"));
 const testUtils_1 = require("./utils/testUtils");
 describe("getCategoriesNameAndNumber", () => {
+    let mongoServer;
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield (0, testUtils_1.setupTestDatabase)();
     }));
@@ -36,6 +37,7 @@ describe("getCategoriesNameAndNumber", () => {
                     price: 10.99,
                     quantity: 50,
                     category: "tecnologia",
+                    extraPoints: 2
                 },
                 {
                     id: 2,
@@ -44,6 +46,7 @@ describe("getCategoriesNameAndNumber", () => {
                     price: 5.99,
                     quantity: 100,
                     category: "tecnologia",
+                    extraPoints: 2
                 },
                 {
                     id: 1,
@@ -52,6 +55,7 @@ describe("getCategoriesNameAndNumber", () => {
                     price: 10.99,
                     quantity: 50,
                     category: "Cucina",
+                    extraPoints: 2
                 },
                 {
                     id: 2,
@@ -60,6 +64,7 @@ describe("getCategoriesNameAndNumber", () => {
                     price: 5.99,
                     quantity: 100,
                     category: "Cucina",
+                    extraPoints: 2
                 },
                 {
                     id: 1,
@@ -68,6 +73,7 @@ describe("getCategoriesNameAndNumber", () => {
                     price: 10.99,
                     quantity: 50,
                     category: "cancelleria",
+                    extraPoints: 2
                 },
             ];
             const products = yield product_model_1.default.create(categoriesPayload);

@@ -29,7 +29,8 @@ const productSchema = new mongoose_1.Schema({
     image: { type: String, required: true },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },
-    category: { type: String, required: true }
+    category: { type: String, required: true },
+    extraPoints: { type: Number, required: true }
 });
 const Product = mongoose_1.default.model("Product", productSchema, 'Product');
 exports.default = Product;

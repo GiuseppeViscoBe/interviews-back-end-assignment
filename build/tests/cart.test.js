@@ -38,74 +38,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../config/app"));
 const productsService = __importStar(require("../services/cart.service"));
+const testUtils_1 = require("./utils/testUtils");
+const mockDataCart_1 = require("./utils/mockDataCart");
 jest.mock('../services/cart.service');
 describe('Cart Controller', () => {
+    beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, testUtils_1.setupTestDatabase)();
+    }));
+    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, testUtils_1.teardownTestDatabase)();
+    }));
     describe('addProductsToCartHandler', () => {
         it('should add a product to the cart and return success message', () => __awaiter(void 0, void 0, void 0, function* () {
-            const mockProductId = 'mockProductId';
-            const mockQuantity = 1;
-            const mockProduct = {
-                _id: '66027650e3db8c0bb8ff2b75',
-                product: {
-                    _id: '660159534ed8c5c94d19f7b4',
-                    id: 1,
-                    name: 'Prodotto 1',
-                    image: 'url_immagine_1',
-                    price: 10.99,
-                    quantity: 20,
-                    category: 'Categoria 1'
-                },
-                __v: 0
-            };
-            const addProductToCartMock = jest.spyOn(productsService, 'addProductToCart');
-            //@ts-ignore
-            addProductToCartMock.mockResolvedValueOnce({ product: mockProduct });
+            productsService.addProductToCart.mockResolvedValueOnce({ product: mockDataCart_1.mockProduct });
             const response = yield (0, supertest_1.default)(app_1.default)
                 .post('/api/addProductsToCart')
-                .send({ productId: mockProductId, quantity: mockQuantity });
+                .send({ productId: 'mockProductId', quantity: 1 });
             expect(response.status).toBe(200);
             expect(response.body).toEqual({ message: 'Product added to cart successfully' });
         }));
         it('should handle the case where no product is found in the database', () => __awaiter(void 0, void 0, void 0, function* () {
-            const mockProductId = 'mockProductId';
-            const mockQuantity = 1;
-            const addProductToCartMock = jest.spyOn(productsService, 'addProductToCart');
-            addProductToCartMock.mockResolvedValueOnce({ product: null });
+            productsService.addProductToCart.mockResolvedValueOnce({ product: null });
             const response = yield (0, supertest_1.default)(app_1.default)
                 .post('/api/addProductsToCart')
-                .send({ productId: mockProductId, quantity: mockQuantity });
+                .send({ productId: 'mockProductId', quantity: 1 });
             expect(response.status).toBe(404);
-            expect(response.body).toEqual({ message: 'No products found in the database' });
+            expect(response.body).toEqual({ message: `No products found with this id : mockProductId` });
         }));
     });
     describe('getCartHandler', () => {
         it('should get the cart and return its contents', () => __awaiter(void 0, void 0, void 0, function* () {
-            const mockCart = [
-                {
-                    _id: '66027650e3db8c0bb8ff2b75',
-                    product: {
-                        _id: '660159534ed8c5c94d19f7b4',
-                        id: 1,
-                        name: 'Prodotto 1',
-                        image: 'url_immagine_1',
-                        price: 10.99,
-                        quantity: 20,
-                        category: 'Categoria 1'
-                    },
-                    __v: 0
-                }
-            ];
-            ;
-            const getCartMock = jest.spyOn(productsService, 'getCart');
-            //@ts-ignore
-            getCartMock.mockResolvedValueOnce(mockCart);
+            productsService.getCart.mockResolvedValueOnce(mockDataCart_1.mockCart);
             const response = yield (0, supertest_1.default)(app_1.default).get('/api/GetCart');
             expect(response.status).toBe(200);
-            expect(response.body).toEqual({ cart: mockCart });
+            expect(response.body).toEqual({ cart: mockDataCart_1.mockCart });
         }));
         it('should handle the case where no products are found in the cart', () => __awaiter(void 0, void 0, void 0, function* () {
-            const getCartMock = jest.spyOn(productsService, 'getCart');
-            getCartMock.mockResolvedValueOnce(null);
+            productsService.getCart.mockResolvedValueOnce(null);
             const response = yield (0, supertest_1.default)(app_1.default).get('/api/GetCart');
             expect(response.status).toBe(404);
             expect(response.body).toEqual({ message: 'No products found in the cart' });

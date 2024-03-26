@@ -24,12 +24,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const userPaymentInfoSchema = new mongoose_1.Schema({
+const userInfoSchema = new mongoose_1.Schema({
     cardNumber: { type: String, required: true },
     expiryMonth: { type: String, required: true },
     expiryYear: { type: String, required: true },
     cvv: { type: String, required: true },
     amount: { type: Number, required: true },
+    earnedPoints: { type: Number, required: true }
 });
-const UserPaymentInfo = mongoose_1.default.model('UserPaymentInfo', userPaymentInfoSchema, 'UserPaymentInfo');
-exports.default = UserPaymentInfo;
+const UserInfo = mongoose_1.default.model('UserInfo', userInfoSchema, 'UserInfo');
+exports.default = UserInfo;

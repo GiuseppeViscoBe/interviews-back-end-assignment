@@ -5,4 +5,5 @@ interface IProduct extends Document {
   price: number;
   quantity: number;
   category: string;
+  extraPoints : number
 }

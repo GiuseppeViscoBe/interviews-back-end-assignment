@@ -1,15 +1,16 @@
 
 import mongoose, { Schema, Model, Document } from 'mongoose';
-import IUserPaymentInfo from '../interfaces/userPaymentInfo';
+import {IUserInfo} from '../interfaces/userInfo';
 
-const userPaymentInfoSchema : Schema<IUserPaymentInfo> = new Schema<IUserPaymentInfo>({
+const userInfoSchema : Schema<IUserInfo> = new Schema<IUserInfo>({
   cardNumber: { type: String, required: true },
   expiryMonth: { type: String, required: true },
   expiryYear: { type: String, required: true },
   cvv: { type: String, required: true },
   amount: { type: Number, required: true },
+  earnedPoints: { type: Number, required: true }
 });
 
-const UserPaymentInfo = mongoose.model<IUserPaymentInfo>('UserPaymentInfo', userPaymentInfoSchema, 'UserPaymentInfo');
+const UserInfo = mongoose.model<IUserInfo>('UserInfo', userInfoSchema, 'UserInfo');
 
-export default UserPaymentInfo;
+export default UserInfo;

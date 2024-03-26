@@ -1,11 +1,13 @@
 import { Document } from 'mongoose';
 
-interface IUserPaymentInfo extends Document {
+interface IUserInfo extends Document {
   cardNumber: string;
   expiryMonth: string;
   expiryYear: string;
   cvv: string;
   amount: number;
+  earnedPoints: number;
 }
 
-export default IUserPaymentInfo;
+
+export  {IUserInfo};

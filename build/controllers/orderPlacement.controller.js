@@ -39,8 +39,12 @@ const constants_1 = require("../constants");
 //@access public
 const placeOrderHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const paymentResponse = yield orderPlacementService.placeOrder();
-        if (paymentResponse.status === constants_1.PaymentStatus.APPROVED) {
+        const usePoints = req.body.usePoints;
+        const paymentResponse = yield orderPlacementService.placeOrder(usePoints);
+        if (!paymentResponse) {
+            res.status(400).json({ message: "The cart is empty" });
+        }
+        if ((paymentResponse === null || paymentResponse === void 0 ? void 0 : paymentResponse.status) === constants_1.PaymentStatus.APPROVED) {
             // Se il pagamento è approvato e non ci sono elementi non disponibili
             if (!paymentResponse.productUnavailable || paymentResponse.productUnavailable.length === 0) {
                 res.status(200).json({ message: "The order was placed successfully" });
@@ -51,10 +55,10 @@ const placeOrderHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, 
                 res.status(400).json({ message: "Some items quantity are not available", unavailableItems });
             }
         }
-        else if (paymentResponse.status === constants_1.PaymentStatus.DECLINED) {
+        else if ((paymentResponse === null || paymentResponse === void 0 ? void 0 : paymentResponse.status) === constants_1.PaymentStatus.DECLINED) {
             return res.status(401).json({ message: "The payment method was declined" });
         }
-        else if (paymentResponse.status === constants_1.PaymentStatus.ERROR) {
+        else if ((paymentResponse === null || paymentResponse === void 0 ? void 0 : paymentResponse.status) === constants_1.PaymentStatus.ERROR) {
             return res.status(500).json({ message: "There was an unidentified error with the payment" });
         }
     }

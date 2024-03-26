@@ -43,7 +43,7 @@ const addProductsToCartHandler = (req, res, next) => __awaiter(void 0, void 0, v
         if (!product) {
             return res
                 .status(404)
-                .json({ message: "No products found in the database" });
+                .json({ message: `No products found with this id : ${productId}` });
         }
         res.status(200).json({ message: "Product added to cart successfully" });
     }
