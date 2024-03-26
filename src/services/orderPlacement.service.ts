@@ -1,7 +1,7 @@
 import Cart from "../models/entities/cart.model";
-import UserPaymentInfo from "../models/entities/userPaymentInfo";
+import UserPaymentInfo from "../models/entities/userPaymentInfo.model";
 import IUserPaymentInfoRequest from "../models/interfaces/userPaymentRequest.interface";
-import IUserPaymentInfo from "../models/interfaces/userPaymentInfo";
+import IUserPaymentInfo from "../models/interfaces/userInfo";
 import { processPayment } from "../utils/paymentUtils";
 import { PaymentStatus } from "../constants";
 import Product from "../models/entities/product.model";

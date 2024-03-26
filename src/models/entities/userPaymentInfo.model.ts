@@ -1,6 +1,6 @@
 
 import mongoose, { Schema, Model, Document } from 'mongoose';
-import IUserPaymentInfo from '../interfaces/userPaymentInfo';
+import {IUserPaymentInfo} from '../interfaces/userInfo';
 
 const userPaymentInfoSchema : Schema<IUserPaymentInfo> = new Schema<IUserPaymentInfo>({
   cardNumber: { type: String, required: true },

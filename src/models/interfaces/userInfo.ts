@@ -8,4 +8,9 @@ interface IUserPaymentInfo extends Document {
   amount: number;
 }
 
-export default IUserPaymentInfo;
+interface IUserInfo extends Document {
+  userPaymentInfo: IUserPaymentInfo;
+  earnedPoints: number;
+}
+
+export  {IUserPaymentInfo, IUserInfo};
