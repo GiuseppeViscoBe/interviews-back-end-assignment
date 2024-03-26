@@ -35,7 +35,7 @@ describe('Cart Controller', () => {
         .send({ productId: 'mockProductId', quantity: 1 });
 
       expect(response.status).toBe(404);
-      expect(response.body).toEqual({ message: 'No products found in the database' });
+      expect(response.body).toEqual({ message: `No products found with this id : mockProductId`  });
     });
   });
 
