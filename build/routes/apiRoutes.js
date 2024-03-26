@@ -16,6 +16,7 @@ router.get("/getProductsByNameAndOrCategory", products_controller_1.default.getP
 router.get("/getCategoriesNameAndNumber", categories_controller_1.default.getCategoriesNameAndNumberHandler);
 //Routes for carte controller
 router.post("/addProductsToCart", cart_controller_1.default.addProductsToCartHandler);
+router.get("/getCart", cart_controller_1.default.getCartHandler);
 //Routes for order placement
 router.post("/placeOrder", orderPlacement_controller_1.default.placeOrderHandler);
 exports.default = router;

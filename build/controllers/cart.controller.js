@@ -34,7 +34,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const productsService = __importStar(require("../services/cart.service"));
 //@desc Post product in the cart
-//@route POST/api/postProducts
+//@route POST/api/addProductsToCart
 //@access public
 const addProductsToCartHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -51,6 +51,24 @@ const addProductsToCartHandler = (req, res, next) => __awaiter(void 0, void 0, v
         next(error);
     }
 });
+//@desc GET products in the cart
+//@route GET/api/GetCart
+//@access public
+const getCartHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const cart = yield productsService.getCart();
+        if (!cart) {
+            return res
+                .status(404)
+                .json({ message: "No products found in the cart" });
+        }
+        res.status(200).json({ cart });
+    }
+    catch (error) {
+        next(error);
+    }
+});
 exports.default = {
     addProductsToCartHandler,
+    getCartHandler
 };

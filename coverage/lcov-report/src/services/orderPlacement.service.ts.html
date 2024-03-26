@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/25</span>
+                <span class='fraction'>6/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.73% </span>
+                <span class="strong">27.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/23</span>
+                <span class='fraction'>5/18</span>
             </div>
         
             
@@ -136,25 +136,16 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,26 +181,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,11 +193,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -236,82 +216,72 @@ import IUserPaymentInfo from "../models/interfaces/userPaymentInfo";
 import { processPayment } from "../utils/paymentUtils";
 import { PaymentStatus } from "../constants";
 import Product from "../models/entities/product.model";
+import { getUnavailableProducts, updateProductsAndCart } from "../utils/orderUtils";
 &nbsp;
 export const placeOrder = <span class="fstat-no" title="function not covered" >async () =</span>&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const userPaymentInfo = <span class="cstat-no" title="statement not covered" >await UserPaymentInfo.find();</span>
-&nbsp;
-    const cartItems = <span class="cstat-no" title="statement not covered" >await Cart.aggregate([</span>
-      {
-        $project: {
-          _id: "$product._id",
-          totalPrice: { $multiply: ["$product.price", "$product.quantity"] },
-          quantity: "$product.quantity",
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          items: {
-            $push: {
-              id: "$_id",
-              total: "$totalPrice",
-              quantity: "$quantity",
-            },
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const userPaymentInfo = <span class="cstat-no" title="statement not covered" >await UserPaymentInfo.findOne();</span>
+  
+      const cartItems = <span class="cstat-no" title="statement not covered" >await Cart.aggregate([</span>
+        {
+          $project: {
+            _id: "$product._id",
+            totalPrice: { $multiply: ["$product.price", "$product.quantity"] },
+            quantity: "$product.quantity",
           },
-          totalAmount: { $sum: "$totalPrice" },
         },
-      },
-    ]);
-&nbsp;
-    const userPaymentInfoRequest: IUserPaymentInfoRequest = <span class="cstat-no" title="statement not covered" >{</span>
-      cardNumber: userPaymentInfo[0].cardNumber,
-      expiryMonth: userPaymentInfo[0].expiryMonth,
-      expiryYear: userPaymentInfo[0].expiryYear,
-      cvv: userPaymentInfo[0].cvv,
-      amount: cartItems[0].totalAmount,
-    };
-&nbsp;
-    //const paymentResponse = await processPayment(userPaymentInfoRequest);
-    const paymentResponse: IPaymentResponse = <span class="cstat-no" title="statement not covered" >{</span>
-        transactionId: "123456789", 
-        status: "approved", 
-        productUnavailable: [], 
+        {
+          $group: {
+            _id: null,
+            items: {
+              $push: {
+                id: "$_id",
+                total: "$totalPrice",
+                quantity: "$quantity",
+              },
+            },
+            totalAmount: { $sum: "$totalPrice" },
+          },
+        },
+      ]);
+  
+      const userPaymentInfoRequest: IUserPaymentInfoRequest = <span class="cstat-no" title="statement not covered" >{</span>
+        cardNumber: userPaymentInfo?.cardNumber || '',
+        expiryMonth: userPaymentInfo?.expiryMonth || '',
+        expiryYear: userPaymentInfo?.expiryYear || '',
+        cvv: userPaymentInfo?.cvv || '',
+        amount: cartItems[0]?.totalAmount || 0,
       };
-      
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (paymentResponse.status === PaymentStatus.APPROVED) {</span>
-      const productUnavailable = <span class="cstat-no" title="statement not covered" >[];</span>
+  
 &nbsp;
-      //Check if all items are available
-<span class="cstat-no" title="statement not covered" >      for (let item of cartItems[0].items) {</span>
-        const tmp = <span class="cstat-no" title="statement not covered" >await Product.findById(item.id);</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (tmp &amp;&amp; tmp.quantity &lt; item.quantity) {</span>
-<span class="cstat-no" title="statement not covered" >          productUnavailable.push({ id: item.id, isQuantityUnavailable: true });</span>
-        }
+       //const paymentResponse = await processPayment(userPaymentInfoRequest);
+      // Mock Payment Response for testing
+      const paymentResponse: IPaymentResponse = <span class="cstat-no" title="statement not covered" >{</span>
+        transactionId: "123456789",
+        status: "approved",
+        productUnavailable: [],
+      };
+  
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (paymentResponse.status !== PaymentStatus.APPROVED) {</span>
+<span class="cstat-no" title="statement not covered" >        return paymentResponse;</span>
       }
-<span class="cstat-no" title="statement not covered" >      if (productUnavailable.length &gt; 0) {</span>
+  
+      const productUnavailable = <span class="cstat-no" title="statement not covered" >await getUnavailableProducts(cartItems[0].items);</span>
+  
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (productUnavailable.length &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >        return {</span>
           transactionId: paymentResponse.transactionId,
           status: PaymentStatus.APPROVED,
-          productUnavailable: productUnavailable,
+          productUnavailable,
         };
       }
-      //If they are proceed 
-      else {
-<span class="cstat-no" title="statement not covered" >        for (let item of cartItems[0].items) {</span>
-<span class="cstat-no" title="statement not covered" >          await Product.findByIdAndUpdate(item.id, {</span>
-            $inc: { quantity: -item.quantity },
-          });
-        }
-<span class="cstat-no" title="statement not covered" >        await Cart.deleteMany({});</span>
-      }
+  
+<span class="cstat-no" title="statement not covered" >      await updateProductsAndCart(cartItems[0].items);</span>
+<span class="cstat-no" title="statement not covered" >      return paymentResponse;</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      throw error;</span>
     }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return paymentResponse;</span>
-  } catch (error) {
-<span class="cstat-no" title="statement not covered" >    throw error;</span>
-  }
-};
+  };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -319,7 +289,7 @@ export const placeOrder = <span class="fstat-no" title="function not covered" >a
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-25T20:23:49.446Z
+                at 2024-03-26T07:54:49.473Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

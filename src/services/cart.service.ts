@@ -2,10 +2,10 @@ import Product from "../models/entities/product.model";
 import Cart from "../models/entities/cart.model";
 import { Types } from 'mongoose';
 
-export async function addProductToCart(
+export const addProductToCart = async (
   productId: string,
   quantity: number
-): Promise<IAddToCartResponse> {
+): Promise<IAddToCartResponse> => {
   try {
     const product = await Product.findById(productId);
     
@@ -29,6 +29,22 @@ export async function addProductToCart(
     await cartItem.save();
 
     return { product};
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export const getCart = async () => {
+  try {
+    const cart = await Cart.find()
+    
+
+    if (!cart) {
+      return null;
+    }
+
+    return cart;
   } catch (error) {
     throw error;
   }

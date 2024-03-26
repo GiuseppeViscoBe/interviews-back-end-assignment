@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import * as productsService from "../services/cart.service";
-import errorHandler from "../middleware/errorHandler";
 
 //@desc Post product in the cart
-//@route POST/api/postProducts
+//@route POST/api/addProductsToCart
 //@access public
 const addProductsToCartHandler = async (
   req: Request,
@@ -28,6 +27,31 @@ const addProductsToCartHandler = async (
   }
 };
 
+
+//@desc GET products in the cart
+//@route GET/api/GetCart
+//@access public
+const getCartHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction) =>{
+  try {
+    const cart =
+      await productsService.getCart()
+
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ message: "No products found in the cart" });
+    }
+
+    res.status(200).json({cart});
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
   addProductsToCartHandler,
+  getCartHandler
 };

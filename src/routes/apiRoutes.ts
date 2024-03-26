@@ -17,6 +17,7 @@ router.get("/getCategoriesNameAndNumber", categoriesController.getCategoriesName
 
 //Routes for carte controller
 router.post("/addProductsToCart", cartController.addProductsToCartHandler)
+router.get("/getCart", cartController.getCartHandler)
 
 //Routes for order placement
 router.post("/placeOrder", orderPlacementController.placeOrderHandler)
