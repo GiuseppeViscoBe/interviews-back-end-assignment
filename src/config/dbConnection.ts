@@ -16,6 +16,7 @@ const connectDb = async (): Promise<Connection> => {
     return connection;
   } catch (error) {
     console.log(error);
+    console.log("ESCO DAL PROCESSO")
     process.exit(1);
   }
 };

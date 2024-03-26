@@ -11,7 +11,8 @@ const placeOrderHandler = async (
   next: NextFunction
 ) => {
   try {
-    const paymentResponse = await orderPlacementService.placeOrder();
+    const usePoints : boolean = req.body.usePoints
+    const paymentResponse = await orderPlacementService.placeOrder(usePoints);
 
     if(!paymentResponse){
       res.status(400).json({message : "The cart is empty"})

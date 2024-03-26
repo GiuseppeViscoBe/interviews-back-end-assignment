@@ -39,7 +39,8 @@ const constants_1 = require("../constants");
 //@access public
 const placeOrderHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const paymentResponse = yield orderPlacementService.placeOrder();
+        const usePoints = req.body.usePoints;
+        const paymentResponse = yield orderPlacementService.placeOrder(usePoints);
         if (!paymentResponse) {
             res.status(400).json({ message: "The cart is empty" });
         }

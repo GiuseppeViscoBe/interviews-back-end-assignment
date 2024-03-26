@@ -25,6 +25,7 @@ const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log(error);
+        console.log("ESCO DAL PROCESSO");
         process.exit(1);
     }
 });

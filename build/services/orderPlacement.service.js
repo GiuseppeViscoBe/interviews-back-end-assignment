@@ -14,19 +14,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.placeOrder = void 0;
 const cart_model_1 = __importDefault(require("../models/entities/cart.model"));
-const userPaymentInfo_model_1 = __importDefault(require("../models/entities/userPaymentInfo.model"));
+const userInfo_model_1 = __importDefault(require("../models/entities/userInfo.model"));
 const constants_1 = require("../constants");
 const orderUtils_1 = require("../utils/orderUtils");
-const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
+const placeOrder = (usePoints) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
-        const userPaymentInfo = yield userPaymentInfo_model_1.default.findOne();
+        const userInfo = yield userInfo_model_1.default.findOne();
+        let totalAmountToPayAfterDiscount = 0;
+        let remainingPoints = 0;
+        let discountResult;
         const cartItems = yield cart_model_1.default.aggregate([
             {
                 $project: {
                     _id: "$product._id",
-                    totalPrice: { $multiply: ["$product.price", "$product.quantity"] },
+                    totalPrice: {
+                        $round: [{ $multiply: ["$product.price", "$product.quantity"] }, 2],
+                    },
                     quantity: "$product.quantity",
+                    extraPoints: "$product.extraPoints",
                 },
             },
             {
@@ -37,21 +43,32 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
                             id: "$_id",
                             total: "$totalPrice",
                             quantity: "$quantity",
+                            extraPoints: "$extraPoints",
                         },
                     },
-                    totalAmount: { $sum: "$totalPrice" },
+                    totalAmount: { $sum: { $round: ["$totalPrice", 2] } },
+                    totalExtraPoints: { $sum: "$extraPoints" },
                 },
             },
         ]);
         if (!cartItems || cartItems.length === 0 || !cartItems[0].items) {
             return null;
         }
+        let totalAmountToPay = (_a = cartItems[0]) === null || _a === void 0 ? void 0 : _a.totalAmount;
+        if (usePoints) {
+            discountResult = (0, orderUtils_1.manageDiscountPoints)(totalAmountToPay, userInfo === null || userInfo === void 0 ? void 0 : userInfo.earnedPoints);
+            totalAmountToPayAfterDiscount =
+                discountResult.totalAmountToPayAfterDiscount === undefined
+                    ? totalAmountToPay
+                    : discountResult.totalAmountToPayAfterDiscount;
+            remainingPoints = discountResult.remainingPoints;
+        }
         const userPaymentInfoRequest = {
-            cardNumber: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.cardNumber) || '',
-            expiryMonth: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.expiryMonth) || '',
-            expiryYear: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.expiryYear) || '',
-            cvv: (userPaymentInfo === null || userPaymentInfo === void 0 ? void 0 : userPaymentInfo.cvv) || '',
-            amount: ((_a = cartItems[0]) === null || _a === void 0 ? void 0 : _a.totalAmount) || 0,
+            cardNumber: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.cardNumber) || "",
+            expiryMonth: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.expiryMonth) || "",
+            expiryYear: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.expiryYear) || "",
+            cvv: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.cvv) || "",
+            amount: usePoints ? totalAmountToPayAfterDiscount : totalAmountToPay,
         };
         //const paymentResponse = await processPayment(userPaymentInfoRequest);
         // Mock Payment Response for testing
@@ -72,8 +89,13 @@ const placeOrder = () => __awaiter(void 0, void 0, void 0, function* () {
                 productUnavailable,
             };
         }
-        //console.log(cartItems[0].items)
         yield (0, orderUtils_1.updateProductsAndCart)(cartItems[0].items);
+        if (usePoints) {
+            yield (0, orderUtils_1.updateUserPoints)(remainingPoints);
+            totalAmountToPay = totalAmountToPayAfterDiscount;
+        }
+        const earnedPoints = (0, orderUtils_1.calculateDiscountPointsEarned)(cartItems[0].items, totalAmountToPay);
+        yield (0, orderUtils_1.addUserPoints)(earnedPoints);
         return paymentResponse;
     }
     catch (error) {
