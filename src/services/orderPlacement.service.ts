@@ -74,14 +74,9 @@ export const placeOrder = async (usePoints: boolean) => {
       cvv: userInfo?.cvv || "",
       amount: usePoints ? totalAmountToPayAfterDiscount : totalAmountToPay,
     };
-    //const paymentResponse = await processPayment(userPaymentInfoRequest);
-    // Mock Payment Response for testing
-    const paymentResponse: IPaymentResponse = {
-      transactionId: "123456789",
-      status: "approved",
-      cartStatus: true,
-      productUnavailable: [],
-    };
+    const paymentResponse = await processPayment(userPaymentInfoRequest);
+    
+    
 
     if (paymentResponse.status !== PaymentStatus.APPROVED) {
       return paymentResponse;
